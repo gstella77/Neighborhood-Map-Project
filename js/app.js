@@ -13,7 +13,7 @@ function initMap() {
         lat: 43.61382,
         lng: -116.202681
         },
-        zoom: 17,
+        zoom: 21,
     });
 
     // These are the real estate listings that will be shown to the user.
@@ -28,13 +28,13 @@ function initMap() {
     ];
 
     // use new constructor to create the InfoWindow
-    var largeInfoWindow = new google.maps.InfoWindow();
+    var largeInfowindow = new google.maps.InfoWindow();
 
     // adjust boundaries and contain listings inside the initial zoom area
-     //var bounds = new google.maps.LatLngBounds();
+     var bounds = new google.maps.LatLngBounds();
 
     //loop through the var locations we created in order to create one marker per location
-    for (var i = 0; i < locations.lenght; i++) {
+    for (var i = 0; i < locations.length; i++) {
         // Get the position for the location array
         var position = locations[i].location;
         var title = locations[i].title;
@@ -53,11 +53,11 @@ function initMap() {
           populateInfoWindow(this, largeInfowindow);
         });
         // Extend boundaries to display all markers
-        //bounds.extend(markers[i].position);
+        bounds.extend(markers[i].position);
 
     }
     // Tell the map to fit all markers inside map
-    //map.fitBounds(bounds);
+    map.fitBounds(bounds);
 }
 
 // This function populates the infowindow when the marker is clicked. We'll only allow
