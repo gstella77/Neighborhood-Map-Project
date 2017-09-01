@@ -13,7 +13,7 @@ function initMap() {
         lat: 43.61382,
         lng: -116.202681
         },
-        zoom: 21,
+        zoom: 12,
     });
 
     // These are the real estate listings that will be shown to the user.
