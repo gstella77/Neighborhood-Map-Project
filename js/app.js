@@ -13,7 +13,8 @@ function initMap() {
         lat: 43.61382,
         lng: -116.202681
         },
-        zoom: 12,
+        zoom: 19,
+        mapTypeControl: false
     });
 
     // These are the real estate listings that will be shown to the user.
@@ -30,9 +31,6 @@ function initMap() {
     // use new constructor to create the InfoWindow
     var largeInfowindow = new google.maps.InfoWindow();
 
-    // adjust boundaries and contain listings inside the initial zoom area
-     var bounds = new google.maps.LatLngBounds();
-
     //loop through the var locations we created in order to create one marker per location
     for (var i = 0; i < locations.length; i++) {
         // Get the position for the location array
@@ -40,7 +38,8 @@ function initMap() {
         var title = locations[i].title;
         // create a marker per location and put markers into marker array
         var marker = new google.maps.Marker({
-          map: map,
+          // Dont set map parameters so markers only display with showList click
+          // map: map,
           position: position,
           title: title,
           animation: google.maps.Animation.DROP,
@@ -52,12 +51,11 @@ function initMap() {
         marker.addListener('click', function(){
           populateInfoWindow(this, largeInfowindow);
         });
-        // Extend boundaries to display all markers
-        bounds.extend(markers[i].position);
-
     }
-    // Tell the map to fit all markers inside map
-    map.fitBounds(bounds);
+
+    //create showListings/hideListings function to display/hide markers
+    document.getElementById('show-listings').addEventListener('click', showListings);
+    document.getElementById('hide-listings').addEventListener('click', hideListings);
 }
 
 // This function populates the infowindow when the marker is clicked. We'll only allow
@@ -71,8 +69,32 @@ function populateInfoWindow(marker, infowindow) {
         infowindow.open(map, marker);
         // Make sure the marker property is cleared if the infowindow is closed.
         infowindow.addListener('closeclick',function(){
-          infowindow.setMarker = null;
+          infowindow.Marker = null;
         });
     }
 }
+
+// This function will loop through the markers array and display them all.
+function showListings() {
+
+    // adjust boundaries and contain listings inside the initial zoom area
+    var bounds = new google.maps.LatLngBounds();
+
+    // Extend the boundaries of the map for each marker and display the marker
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+        bounds.extend(markers[i].position);
+    }
+    // Tell the map to fit all markers inside map
+    map.fitBounds(bounds);
+}
+
+// This function will loop through the listings and hide them all.
+function hideListings() {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+}
+
+
 
