@@ -4,6 +4,8 @@
 // Create a new blank array for all the listing markers.
 var markers = [];
 
+
+
 // function to initialize the map
 // use constructor to create a new map JS object.
 function initMap() {
@@ -14,11 +16,14 @@ function initMap() {
         lng: -116.202681
         },
         zoom: 19,
-        mapTypeControl: false
+        //mapTypeControl: false
     });
 
     // These are the real estate listings that will be shown to the user.
     // Normally we'd have these in a database instead.
+
+    // Ko test area
+
     var locations = [
         {title: 'Bardenay Restaurant', location: {lat: 43.614042, lng: -116.202191}},
         {title: 'Gernika', location: {lat: 43.614072, lng: -116.202967}},
@@ -96,5 +101,58 @@ function hideListings() {
     }
 }
 
+
+/*
+********************
+Implemeting Ko
+*/
+
+var mapPlaces = [
+
+    {title5: 'Bardenay Restaurant',
+        location5:{
+            lat5: 'some lat',
+            lng5: 'some minus lng'
+         }
+    },
+    {title5: 'Bar Gernika',
+        location5:{
+            lat5: 'some lat',
+            lng5: 'some minus lng'
+         }
+    },
+    {title5: 'Goldys Corner',
+        location5:{
+            lat5: 'some lat',
+            lng5: 'some minus lng'
+         }
+    }
+];
+
+var MapLogic = function(data) {
+    this.title5 = data.title5;
+}
+
+// mapLogic now lives in currentMap variable
+// use self to map to the view model
+var ViewModel = function() {
+
+    var self = this;
+
+    this.mapList = ko.observableArray([]);
+
+    //easy way to watch for array
+    //this.mapList = ko.observableArray(mapPlaces);
+
+    mapPlaces.forEach(function(placeItem){
+        self.mapList.push( new MapLogic(placeItem));
+        console.log('loaded items');
+    });
+
+    // store current location into a new observable variable
+    this.currentMap = ko.observable( this.mapList() );
+};
+
+ko.applyBindings(new ViewModel());
 
 
