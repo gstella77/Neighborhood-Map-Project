@@ -5,10 +5,10 @@
 
 var locations = [
     {title: 'Bardenay Restaurant',
-        location: {
-            lat: 43.614042,
-            lng: -116.202191
-        }
+     location: {
+        lat: 43.614042,
+        lng: -116.202191
+    }
     },
     {title: 'Gernika', location: {lat: 43.614072, lng: -116.202967}},
     {title: 'Goldys Corner', location: {lat: 43.614682, lng: -116.202464 }},
@@ -34,7 +34,7 @@ function initMap() {
         lat: 43.61382,
         lng: -116.202681
         },
-        zoom: 19,
+        zoom: 17,
         //mapTypeControl: false
     });
 
@@ -46,15 +46,17 @@ function initMap() {
         // Get the position for the location array
         var position = locations[i].location;
         var title = locations[i].title;
+
         // create a marker per location and put markers into marker array
         var marker = new google.maps.Marker({
-          // Dont set map parameters so markers only display with showList click
-          // map: map,
+          // disable map below if markers only display with showList click
+          map: map,
           position: position,
           title: title,
           animation: google.maps.Animation.DROP,
           id: i
         });
+
         // Push markers into markers array
         markers.push(marker);
         // Create an onclick event to open infowindow on each marker
@@ -64,8 +66,9 @@ function initMap() {
     }
 
     //create showListings/hideListings function to display/hide markers
-    document.getElementById('show-listings').addEventListener('click', showListings);
+    /*document.getElementById('show-listings').addEventListener('click', showListings);
     document.getElementById('hide-listings').addEventListener('click', hideListings);
+    */
 }
 
 // This function populates the infowindow when the marker is clicked. We'll only allow
@@ -85,6 +88,7 @@ function populateInfoWindow(marker, infowindow) {
 }
 
 // This function will loop through the markers array and display them all.
+/*
 function showListings() {
 
     // adjust boundaries and contain listings inside the initial zoom area
@@ -105,37 +109,19 @@ function hideListings() {
         markers[i].setMap(null);
     }
 }
-
+*/
 
 /*
 ********************
 Implemeting Ko
+********************
 */
 
-var mapPlaces = [
-
-    {title5: 'Bardenay Restaurant',
-        location5:{
-            lat5: 'some lat',
-            lng5: 'some minus lng'
-         }
-    },
-    {title5: 'Bar Gernika',
-        location5:{
-            lat5: 'some lat',
-            lng5: 'some minus lng'
-         }
-    },
-    {title5: 'Goldys Corner',
-        location5:{
-            lat5: 'some lat',
-            lng5: 'some minus lng'
-         }
-    }
-];
-
-var MapLogic = function(data) {
-    this.title5 = data.title5;
+// object constructor that shares data characteristics
+var MapItem = function(data) {
+    this.title = ko.observable(data.title);
+    this.markers = ko.observableArray(data.markers);
+    this.marker = ko.observableArray(data.marker);
 }
 
 // mapLogic now lives in currentMap variable
@@ -144,18 +130,24 @@ var ViewModel = function() {
 
     var self = this;
 
-    //this.mapList = ko.observableArray([]);
+    this.mapList = ko.observableArray([]);
 
-    //easy way to watch for array
-    this.mapList = ko.observableArray(mapPlaces);
-    /*
-    mapPlaces.forEach(function(placeItem){
-        self.mapList.push( new MapLogic(placeItem));
+    //other way to watch for array
+    //this.mapList = ko.observableArray(locations);
+
+    locations.forEach(function(placeItem){
+        self.mapList.push( new MapItem(placeItem));
         console.log('loaded items');
     });
-    */
+
+
     // store current location into a new observable variable
     this.currentMap = ko.observable( this.mapList() );
+
+    this.getMarker = function(clickedMarker) {
+        self.currentMap(clickedMarker);
+        console.log('marker?');
+    };
 };
 
 ko.applyBindings(new ViewModel());

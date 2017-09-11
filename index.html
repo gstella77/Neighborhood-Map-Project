@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-3">
                 <ul data-bind="foreach: mapList">
-                    <li data-bind="text: title5"></li>
+                    <li data-bind="text: title, click: $parent.getMarker"></li>
                 </ul>
                 <input id="show-listings" type="button" value="Show Listings">
                 <input id="hide-listings" type="button" value="Hide Listings">
@@ -43,7 +43,7 @@
   crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
-  <script src="js/app.js"> </script>
+  <script src="js/app_V1.js"> </script>
 
 
  </body>
