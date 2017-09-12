@@ -34,8 +34,8 @@ function initMap() {
         lat: 43.61382,
         lng: -116.202681
         },
-        zoom: 17,
-        //mapTypeControl: false
+        zoom: 18,
+        mapTypeControl: false
     });
 
     // use new constructor to create the InfoWindow
@@ -71,6 +71,7 @@ function initMap() {
     */
 }
 
+
 // This function populates the infowindow when the marker is clicked. We'll only allow
 // one infowindow which will open at the marker that is clicked, and populate based
 // on that markers position.
@@ -80,12 +81,20 @@ function populateInfoWindow(marker, infowindow) {
         infowindow.marker = marker;
         infowindow.setContent('<div>' + marker.title + '</div>');
         infowindow.open(map, marker);
+        infowindow.marker.setAnimation(google.maps.Animation.BOUNCE);
+
         // Make sure the marker property is cleared if the infowindow is closed.
         infowindow.addListener('closeclick',function(){
           infowindow.Marker = null;
         });
     }
+
+    setTimeout(function(){
+        infowindow.marker.setAnimation(null);
+    }, 700);
 }
+
+
 
 // This function will loop through the markers array and display them all.
 /*
@@ -118,11 +127,13 @@ Implemeting Ko
 */
 
 // object constructor that shares data characteristics
-var MapItem = function(data) {
+var MapLocation = function(data) {
     this.title = ko.observable(data.title);
-    this.markers = ko.observableArray(data.markers);
-    this.marker = ko.observableArray(data.marker);
+    this.marker = ko.observable(data.marker);
+
+
 }
+
 
 // mapLogic now lives in currentMap variable
 // use self to map to the view model
@@ -135,20 +146,39 @@ var ViewModel = function() {
     //other way to watch for array
     //this.mapList = ko.observableArray(locations);
 
+    // Loop over locations list
     locations.forEach(function(placeItem){
-        self.mapList.push( new MapItem(placeItem));
+        self.mapList.push( new MapLocation(placeItem));
         console.log('loaded items');
     });
+
+    this.filter = ko.observable("");
+
+    // OH BOY FILTER WORKS NOW!
+    // Need to acess mapList.title() as a function
+    this.filteredItems = ko.computed(function() {
+        var filter = self.filter().toLowerCase();
+        if (!filter) {
+            return self.mapList();
+        } else {
+            return ko.utils.arrayFilter(self.mapList(), function(mapList) {
+                var exist = mapList.title().toLowerCase().indexOf(filter) !== -1;
+                return exist;
+            });
+        }
+    }, self);
 
 
     // store current location into a new observable variable
     this.currentMap = ko.observable( this.mapList() );
 
+    //bind marker data
     this.getMarker = function(clickedMarker) {
-        self.currentMap(clickedMarker);
+        //self.currentMap(clickedMarker);
         console.log('marker?');
     };
 };
+
 
 ko.applyBindings(new ViewModel());
 

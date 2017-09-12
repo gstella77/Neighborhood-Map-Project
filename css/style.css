@@ -5,6 +5,10 @@ body {
   padding: 0;
 }
 
+input {
+  width: 200px;
+}
+
 /*
 #map {
   width: 100%;
