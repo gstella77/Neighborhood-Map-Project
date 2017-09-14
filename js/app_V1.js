@@ -23,11 +23,13 @@ var locations = [
 // Create a new blank array for all the listing markers.
 var markers = [];
 
-
+//var marker
 
 // function to initialize the map
 // use constructor to create a new map JS object.
-function initMap() {
+// Make it an annonymous function expression? - so it is not hoisted or moved it to the top
+// will self-invoked perform better?
+var initMap = function() {
     // USE Basque museum as the center
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
@@ -47,6 +49,7 @@ function initMap() {
         var position = locations[i].location;
         var title = locations[i].title;
 
+
         // create a marker per location and put markers into marker array
         var marker = new google.maps.Marker({
           // disable map below if markers only display with showList click
@@ -54,16 +57,29 @@ function initMap() {
           position: position,
           title: title,
           animation: google.maps.Animation.DROP,
-          id: i
+          //id: i
         });
 
         // Push markers into markers array
         markers.push(marker);
+
+        // Test marker visibility
+
+        markerPin = markers[i];
+
+
         // Create an onclick event to open infowindow on each marker
+
+        // bind this with knockout click
+        //use the list to bind the click
         marker.addListener('click', function(){
           populateInfoWindow(this, largeInfowindow);
         });
+
+        markerPin.setVisible(false);
     }
+// test fix "not a function" error about loading map
+// google.maps.event.addDomListener(window, 'load', initMap);
 
     //create showListings/hideListings function to display/hide markers
     /*document.getElementById('show-listings').addEventListener('click', showListings);
@@ -75,6 +91,8 @@ function initMap() {
 // This function populates the infowindow when the marker is clicked. We'll only allow
 // one infowindow which will open at the marker that is clicked, and populate based
 // on that markers position.
+
+
 function populateInfoWindow(marker, infowindow) {
   // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
@@ -129,8 +147,9 @@ Implemeting Ko
 // object constructor that shares data characteristics
 var MapLocation = function(data) {
     this.title = ko.observable(data.title);
-    this.marker = ko.observable(data.marker);
+    //this.marker = ko.observable(data.marker);
 
+    //this.markerPin = ko.observable(data.marker);
 
 }
 
@@ -152,17 +171,32 @@ var ViewModel = function() {
         console.log('loaded items');
     });
 
+
     this.filter = ko.observable("");
 
     // OH BOY FILTER WORKS NOW!
     // Need to acess mapList.title() as a function
+    // article reference for filter: http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
+    // method "stringStartsWith" to filter was removed - work around use var exist and return value
+    // make marker a property of location then compute it below
+    // use if statement to check if marker exist before returning locations
     this.filteredItems = ko.computed(function() {
         var filter = self.filter().toLowerCase();
+
         if (!filter) {
+        /*for (var i=0; i < self.mapList.length; i++) {
+            if (self.mapList()[i].marker) {
+                //return console.log(self.mapList()[i].marker);
+                 self.mapList()[i].marker.setVisible(false);
+            }
+        }*/
+
             return self.mapList();
+
         } else {
             return ko.utils.arrayFilter(self.mapList(), function(mapList) {
                 var exist = mapList.title().toLowerCase().indexOf(filter) !== -1;
+                //mapList.marker().setVisible(exist);
                 return exist;
             });
         }
@@ -178,7 +212,6 @@ var ViewModel = function() {
         console.log('marker?');
     };
 };
-
 
 ko.applyBindings(new ViewModel());
 

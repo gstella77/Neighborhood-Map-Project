@@ -21,9 +21,8 @@
         <div class="row">
             <div class="col-md-3">
                 <h4>Filter by Location Name</h4>
-                    <!--<p><input type="text" name="fname"></p>-->
-                    <p><input data-bind="value: filter, valueUpdate: 'afterkeydown'"/>
-                    </p>
+                <!--<p>Add filter and use observed array</p>-->
+                 <p><input data-bind="value: filter, valueUpdate: 'afterkeydown'"/></p>
                 <ul data-bind="foreach: filteredItems">
                     <li data-bind="text: title, click: $parent.getMarker"></li>
                 </ul>
@@ -41,13 +40,13 @@
 <!-- Load the JS API ASYNCHRONOUSLY below.-->
 <!-- use API v3 'v=3' -->
 
- <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhD_1ajo-rWaaCsIi7a9TV5PZpL-Bposk&v=3&callback=initMap" async defer></script>-->
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
-  <script src="js/app_V1.js"> </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhD_1ajo-rWaaCsIi7a9TV5PZpL-Bposk&v=3&callback=initMap" async defer></script>
+  <script src="js/app_V2.js"> </script>
 
 
  </body>
