@@ -70,8 +70,6 @@ Implemeting Ko
 // object constructor that shares data characteristics
 var MapLocation = function(data) {
     this.title = ko.observable(data.title);
-    //this.marker = ko.observable(data.marker);
-    //this.markerPin = ko.observable(data.marker);
 }
 
 // use self to map to the view model
