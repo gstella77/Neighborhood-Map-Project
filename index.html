@@ -23,11 +23,9 @@
                 <h4>Filter by Location Name</h4>
                 <!--<p>Add filter and use observed array</p>-->
                  <p><input data-bind="value: filter, valueUpdate: 'afterkeydown'"/></p>
-                <ul data-bind="foreach: filteredItems">
-                    <li data-bind="text: title, click: $parent.getMarker"></li>
+                 <ul data-bind="foreach: filteredItems">
+                      <li data-bind="text: title, click: $parent.getMarker"></li>
                 </ul>
-                <input id="show-listings" type="button" value="Show Listings">
-                <input id="hide-listings" type="button" value="Hide Listings">
             </div>
             <div class="col-md-9 map-div">
                  <!-- Create a place to put the map in the HTML-->

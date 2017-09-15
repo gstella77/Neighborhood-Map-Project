@@ -1,19 +1,54 @@
-// These are the real estate listings that will be shown to the user.
-// Normally we'd have these in a database instead.
-
-// Ko test area
+// Move location objects out of initMap to simplyfy and
+// pass it as data parameter into MapLocation constructor
+// Add marker as a property of each location
 
 var locations = [
-    {title: 'Bardenay Restaurant', location: {lat: 43.614042, lng: -116.202191}},
-    {title: 'Gernika', location: {lat: 43.614072, lng: -116.202967}},
-    {title: 'Goldys Corner', location: {lat: 43.614682, lng: -116.202464 }},
-    {title: 'Reef', location: {lat: 43.614307, lng: -116.201695}},
-    {title: 'The Basque Market', location: {lat:  43.614019, lng: -116.202074}},
-    {title: 'Leku ona', location: {lat: 43.614004, lng: -116.201861}}
+    {title: 'Bardenay Restaurant',
+    location: {
+        lat: 43.614042,
+        lng: -116.202191
+        },
+    marker: {}
+    },
+    {title: 'Gernika',
+    location: {
+        lat: 43.614072,
+        lng: -116.202967
+        },
+    marker: {}
+    },
+    {title: 'Goldys Corner',
+        location: {
+        lat: 43.614682,
+        lng: -116.202464
+        },
+    marker: {}
+    },
+    {title: 'Reef',
+    location: {
+        lat: 43.614307,
+        lng: -116.201695
+        },
+    marker: {}
+    },
+    {title: 'The Basque Market',
+    location: {
+        lat:  43.614019,
+        lng: -116.202074
+        },
+    marker: {}
+    },
+    {title: 'Leku ona',
+    location: {
+        lat: 43.614004,
+        lng: -116.201861
+        },
+    marker: {}
+    }
 ];
 
 // Create a map variable
- var map;
+var map;
 
 // Create a new blank array for all the listing markers.
 var markers = [];
@@ -24,26 +59,22 @@ var markers = [];
 // use constructor to create a new map JS object.
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {
-        lat: 43.61382,
-        lng: -116.202681
-        },
+        center: {lat: 43.61382, lng: -116.202681},
         zoom: 18,
         mapTypeControl: false
     });
 
     // use new constructor to create the InfoWindow
     var largeInfowindow = new google.maps.InfoWindow();
+    var bounds = new google.maps.LatLngBounds();
 
     //loop through the var locations we created in order to create one marker per location
     for (var i = 0; i < locations.length; i++) {
         // Get the position for the location array
         var position = locations[i].location;
         var title = locations[i].title;
-
-
         // create a marker per location and put markers into marker array
-        var marker = new google.maps.Marker({
+        locations.marker = new google.maps.Marker({
           // disable map below if markers only display with showList click
           map: map,
           position: position,
@@ -53,13 +84,15 @@ function initMap() {
         });
 
         // Push markers into markers array
-        markers.push(marker);
+        markers.push(locations.marker);
 
-         if (markers[i]) {
-            //return console.log(self.mapList()[i].marker);
-            marker.setVisible(true);
+        if (markers[i]) {
+            bounds.extend(markers[i].position);
+            locations.marker.setVisible(true);
         }
+    map.fitBounds(bounds);
     }
+
 }
 
 
@@ -67,7 +100,7 @@ function initMap() {
 Implemeting Ko
 ********************/
 
-// object constructor that shares data characteristics
+// pass the object literal locations as "data" into a constructor function
 var MapLocation = function(data) {
     this.title = ko.observable(data.title);
 }
@@ -100,6 +133,8 @@ var ViewModel = function() {
                 return exist;
             });
         }
+        // write the value to the console, when the observables value changes
+        console.log(self.filter());
     }, self);
 
     // store current location into a new observable variable
