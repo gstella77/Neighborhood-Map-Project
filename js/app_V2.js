@@ -1,49 +1,54 @@
 // Move location objects out of initMap to simplyfy and
 // pass it as data parameter into MapLocation constructor
-// Add marker as a property of each location
 
 var locations = [
-    {title: 'Bardenay Restaurant',
+    {title: 'The Basque Block',
     location: {
-        lat: 43.614042,
-        lng: -116.202191
-        },
-    marker: {}
+        lat: 43.613946,
+        lng: -116.20246
+        }
     },
-    {title: 'Gernika',
+    {title: 'Gernika Bar',
     location: {
         lat: 43.614072,
         lng: -116.202967
-        },
-    marker: {}
+        }
     },
-    {title: 'Goldys Corner',
+    {title: 'The Basque Museum',
         location: {
-        lat: 43.614682,
-        lng: -116.202464
-        },
-    marker: {}
+        lat: 43.61382,
+        lng: -116.202681
+        }
     },
-    {title: 'Reef',
+    {title: 'The Porton',
+        location: {
+        lat: 43.613702,
+        lng: -116.202606
+        }
+    },
+    {title: 'The Boarding House',
+        location: {
+        lat: 43.613655,
+        lng: -116.202442
+        }
+    },
+    {title: 'The Basque Center',
     location: {
-        lat: 43.614307,
-        lng: -116.201695
-        },
-    marker: {}
+        lat: 43.613543,
+        lng: -116.202293
+        }
     },
     {title: 'The Basque Market',
     location: {
         lat:  43.614019,
         lng: -116.202074
-        },
-    marker: {}
+        }
     },
-    {title: 'Leku ona',
+    {title: 'Leku ona Restaurant',
     location: {
         lat: 43.614004,
         lng: -116.201861
-        },
-    marker: {}
+        }
     }
 ];
 
@@ -53,13 +58,11 @@ var map;
 // Create a new blank array for all the listing markers.
 var markers = [];
 
-//var marker
-
 // function to initialize the map
 // use constructor to create a new map JS object.
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 43.61382, lng: -116.202681},
+        center: {lat: 43.614019, lng: -116.201861},
         zoom: 18,
         mapTypeControl: false
     });
@@ -74,27 +77,28 @@ function initMap() {
         var position = locations[i].location;
         var title = locations[i].title;
         // create a marker per location and put markers into marker array
-        locations.marker = new google.maps.Marker({
+        var marker = new google.maps.Marker({
           // disable map below if markers only display with showList click
           map: map,
           position: position,
-          title: title,
+          //title: title,
           animation: google.maps.Animation.DROP,
           //id: i
         });
 
+        // Add marker as a property of each location
+        locations[i].marker = marker;
+
         // Push markers into markers array
-        markers.push(locations.marker);
+        markers.push(marker);
 
         if (markers[i]) {
             bounds.extend(markers[i].position);
-            locations.marker.setVisible(true);
+            //marker.setVisible(true);
         }
     map.fitBounds(bounds);
     }
-
 }
-
 
 /********************
 Implemeting Ko
@@ -108,33 +112,40 @@ var MapLocation = function(data) {
 // use self to map to the view model
 var ViewModel = function() {
     var self = this;
-    this.mapList = ko.observableArray([]);
+    //this.mapList = ko.observableArray([]);
 
-    //other way to observe array
-    //this.mapList = ko.observableArray(locations);
+    //observe locations object array
+    this.mapList = ko.observableArray(locations);
 
     // Loop over locations list
-    locations.forEach(function(placeItem){
+    /*locations.forEach(function(placeItem){
         self.mapList.push( new MapLocation(placeItem));
         console.log('loaded items');
-    });
+    });*/
 
+    // observe filter variable to determine its value in the ko.computed function below
     this.filter = ko.observable("");
-    // use if statement to check if marker exist before returning locations
+
     this.filteredItems = ko.computed(function() {
         var filter = self.filter().toLowerCase();
 
-        if (!filter) {
-            return self.mapList();
+        /* Created a conditional to toggle the markers visibility */
+        // Return a self invoked function with a boolean to check if
+        // the list and markers are not being filtered
+        // indexOf method checks if there are strings using the filter parameter,
+        // then it will return either true or false and pass it into the var "exist".
 
-        } else {
-            return ko.utils.arrayFilter(self.mapList(), function(mapList) {
-                var exist = mapList.title().toLowerCase().indexOf(filter) !== -1;
-                return exist;
-            });
-        }
+        return ko.utils.arrayFilter(self.mapList(), function(listItem) {
+
+            // read if current filter's value is not empty
+            var exist = listItem.title.toLowerCase().indexOf(filter) !== -1;
+            if (listItem.marker) {
+                console.log(self.mapList().marker + " strings");
+                listItem.marker.setVisible(exist);
+            }
+            return exist;
+        });
         // write the value to the console, when the observables value changes
-        console.log(self.filter());
     }, self);
 
     // store current location into a new observable variable
