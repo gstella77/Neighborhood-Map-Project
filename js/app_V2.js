@@ -61,10 +61,79 @@ var markers = [];
 // function to initialize the map
 // use constructor to create a new map JS object.
 function initMap() {
+
+    var mapStyle = [
+      {
+        featureType: 'water',
+        stylers: [
+          { color: '#19a0d8' }
+        ]
+      },{
+        featureType: 'administrative',
+        elementType: 'labels.text.stroke',
+        stylers: [
+          { color: '#ffffff' },
+          { weight: 6 }
+        ]
+      },{
+        featureType: 'administrative',
+        elementType: 'labels.text.fill',
+        stylers: [
+          { color: '#e85113' }
+        ]
+      },{
+        featureType: 'road.highway',
+        elementType: 'geometry.stroke',
+        stylers: [
+          { color: '#efe9e4' },
+          { lightness: -40 }
+        ]
+      },{
+        featureType: 'transit.station',
+        stylers: [
+          { weight: 9 },
+          { hue: '#e85113' }
+        ]
+      },{
+        featureType: 'road.highway',
+        elementType: 'labels.icon',
+        stylers: [
+          { visibility: 'off' }
+        ]
+      },{
+        featureType: 'water',
+        elementType: 'labels.text.stroke',
+        stylers: [
+          { lightness: 100 }
+        ]
+      },{
+        featureType: 'water',
+        elementType: 'labels.text.fill',
+        stylers: [
+          { lightness: -100 }
+        ]
+      },{
+        featureType: 'poi',
+        elementType: 'geometry',
+        stylers: [
+          { visibility: 'on' },
+          { color: '#f0e4d3' }
+        ]
+      },{
+        featureType: 'road.highway',
+        elementType: 'geometry.fill',
+        stylers: [
+          { color: '#efe9e4' },
+          { lightness: -25 }
+        ]
+      }
+    ];
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 43.614019, lng: -116.201861},
         zoom: 18,
-        mapTypeControl: false
+        mapTypeControl: false,
+        styles: mapStyle
+
     });
 
     // use new constructor to create the InfoWindow
@@ -81,7 +150,7 @@ function initMap() {
           // disable map below if markers only display with showList click
           map: map,
           position: position,
-          //title: title,
+          title: title,
           animation: google.maps.Animation.DROP,
           //id: i
         });
@@ -107,6 +176,8 @@ Implemeting Ko
 // pass the object literal locations as "data" into a constructor function
 var MapLocation = function(data) {
     this.title = ko.observable(data.title);
+    this.marker = marker;
+    this.markers = markers;
 }
 
 // use self to map to the view model
@@ -132,15 +203,14 @@ var ViewModel = function() {
         /* Created a conditional to toggle the markers visibility */
         // Return a self invoked function with a boolean to check if
         // the list and markers are not being filtered
-        // indexOf method checks if there are strings using the filter parameter,
+        // indexOf method will return -1 if no item/text is found in the filter.
         // then it will return either true or false and pass it into the var "exist".
 
         return ko.utils.arrayFilter(self.mapList(), function(listItem) {
-
-            // read if current filter's value is not empty
             var exist = listItem.title.toLowerCase().indexOf(filter) !== -1;
             if (listItem.marker) {
-                console.log(self.mapList().marker + " strings");
+                console.log("visible = " + exist);
+
                 listItem.marker.setVisible(exist);
             }
             return exist;
@@ -149,7 +219,28 @@ var ViewModel = function() {
     }, self);
 
     // store current location into a new observable variable
-    //this.currentMap = ko.observable( this.mapList() );
+    this.currentMap = ko.observable(this.mapList());
+
+    // Get current marker on the list and animate pin
+    this.getMarker = function(clickedMarker) {
+        self.currentMap(clickedMarker);
+
+        if(self.currentMap().marker) {
+            this.marker.setAnimation(google.maps.Animation.BOUNCE);
+            //this.marker.setVisible(false);
+            console.log("marker clicked = " + self.currentMap().marker.title);
+        };
+
+        setTimeout(function(){
+            self.currentMap().marker.setAnimation(null);
+        }, 700);
+
+    };
+
+    // Activate marker info window
+    this.markerInfo = function(markerInfo) {
+        self.currentMap(markerInfo);
+    };
 };
 
 ko.applyBindings(new ViewModel());

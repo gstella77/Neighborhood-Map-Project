@@ -23,6 +23,7 @@
                 <h4>Filter by Location Name</h4>
                 <!--<p>Add filter and use observed array</p>-->
                  <p><input data-bind="value: filter, valueUpdate: 'afterkeydown'"/></p>
+
                  <ul data-bind="foreach: filteredItems">
                       <li data-bind="text: title, click: $parent.getMarker"></li>
                 </ul>
