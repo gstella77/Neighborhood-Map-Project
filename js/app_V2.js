@@ -2,6 +2,10 @@
 // pass it as data parameter into MapLocation constructor
 // made lat and lng more accessible
 
+/*******************
+MODEL
+********************/
+
 var locations = [
     {title: 'The Basque Block',
         lat: 43.613946,
@@ -50,10 +54,8 @@ var locations = [
 ];
 
 // Create a map variable
-var map;
-
+//var map;
 function initMap() {
-
         map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 43.614019, lng: -116.201861},
         zoom: 18,
@@ -64,79 +66,15 @@ function initMap() {
     ko.applyBindings(new ViewModel());
 }
 
-
-// Create a new blank array for all the listing markers.
-//var markers = [];
-
-// function to initialize the map
-// use constructor to create a new map JS object.
-/*function initMap() {
-
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 43.614019, lng: -116.201861},
-        zoom: 18,
-        mapTypeControl: false
-
-    });
-
-    // use new constructor to create the InfoWindow
-    //var largeInfowindow = new google.maps.InfoWindow();
-    /*var bounds = new google.maps.LatLngBounds();
-
-    //loop through the var locations we created in order to create one marker per location
-    for (var i = 0; i < locations.length; i++) {
-        // Get the position for the location array
-        var position = locations[i].location;
-        var title = locations[i].title;
-        // create a marker per location and put markers into marker array
-        var marker = new google.maps.Marker({
-          // disable map below if markers only display with showList click
-          map: map,
-          position: position,
-          title: title,
-          animation: google.maps.Animation.DROP,
-          //id: i
-        });
-
-        // Add marker as a property of each location
-        locations[i].marker = marker;
-
-        // Push markers into markers array
-        markers.push(marker);
-
-        if (markers[i]) {
-            bounds.extend(markers[i].position);
-            //marker.setVisible(true);
-        }
-    map.fitBounds(bounds);
-    }
-
-
-    ko.applyBindings(new ViewModel());
-}*/
-
-/********************
-Implemeting Ko
-********************/
-
-// Class constructor for the locations, marker, and infowindow object
+/* Class constructor to generate the list and visual map elements. This class will be needed
+by the ViewModel to iterate for each location, marker, and infowindow */
 var MapLocation = function(data) {
     var self = this;
     self.title = ko.observable(data.title);
     self.lat = ko.observable(data.lat);
     self.lng = ko.observable(data.lng);
 
-    // markers array no needed - MapLocation will be pushed in the ViewModel into mapList
-    //var markers = [];
-
-    // don't need to iterate since the ViewModel will use forEach and push a new MapLocation
-    // which iterate a single location with a linked marker and infowindow
-    // loop through the var locations we created in order to create one marker per location
-    /*for (var i = 0; i < locations.length; i++) {
-            // Get the position for the location array
-            var position = locations[i].location;
-            var title = locations[i].title;*/
-    //}
+    this.map = map,
 
     // create a new marker and bind position and title properties
     // with observed locations above
@@ -161,11 +99,7 @@ var MapLocation = function(data) {
     this.openwindow = new google.maps.InfoWindow({
         content: self.contentString
     });
-    //markers.push(this.marker);
-
-    //self.locations[i].marker = marker;
 }
-
 
 // ViewModel and holds initial screen
 var ViewModel = function() {
@@ -173,10 +107,8 @@ var ViewModel = function() {
 
     this.mapList = ko.observableArray([]);
 
-    //observed locations object array
-    //this.mapList = ko.observableArray(locations);
-
-    // iterate on each location and create new MapLocation
+    // iterate on each location and push MapLocation into mapList array
+    // what does it do?
     locations.forEach(function(placeItem){
         self.mapList.push( new MapLocation(placeItem));
         //console.log(mapList() + 'loaded items');
@@ -185,20 +117,15 @@ var ViewModel = function() {
     // observe filter variable to determine its value in the ko.computed function below
     this.filter = ko.observable("");
 
+    /* Return a  boolean condition to toggle the markers visibility with
+    indexOf method to check if no text is found in the filter.*/
     this.filteredItems = ko.computed(function() {
         var filter = self.filter().toLowerCase();
-
-        /* Created a conditional to toggle the markers visibility */
-        // Return a self invoked function with a boolean to check if
-        // the list and markers are not being filtered
-        // indexOf method will return -1 if no item/text is found in the filter.
-        // then it will return either true or false and pass it into the var "exist".
 
         return ko.utils.arrayFilter(self.mapList(), function(listItem) {
             var exist = listItem.title().toLowerCase().indexOf(filter) !== -1;
             if (listItem.marker) {
                 console.log("visible = " + exist);
-
                 listItem.marker.setVisible(exist);
             }
             return exist;
