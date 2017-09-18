@@ -54,14 +54,14 @@ var map;
 
 function initMap() {
 
-    map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 43.614019, lng: -116.201861},
         zoom: 18,
         mapTypeControl: false
 
     });
 
-       ko.applyBindings(new ViewModel());
+    ko.applyBindings(new ViewModel());
 }
 
 
@@ -119,20 +119,18 @@ function initMap() {
 Implemeting Ko
 ********************/
 
-// Class constructor for the locations object
+// Class constructor for the locations, marker, and infowindow object
 var MapLocation = function(data) {
     var self = this;
     self.title = ko.observable(data.title);
     self.lat = ko.observable(data.lat);
     self.lng = ko.observable(data.lng);
 
-    var bounds = new google.maps.LatLngBounds();
-
     // markers array no needed - MapLocation will be pushed in the ViewModel into mapList
     //var markers = [];
 
     // don't need to iterate since the ViewModel will use forEach and push a new MapLocation
-    // which iterate a single location with a linked marker
+    // which iterate a single location with a linked marker and infowindow
     // loop through the var locations we created in order to create one marker per location
     /*for (var i = 0; i < locations.length; i++) {
             // Get the position for the location array
@@ -149,12 +147,24 @@ var MapLocation = function(data) {
         animation: google.maps.Animation.DROP,
     });
 
-    //
+    // Infowindow content
+    // Include third party API here
+    this.contentString = '<h3>' + self.title() + '</h3>'+
+        '<div id="bodyContent">'+
+        '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large sandstone rock formation in the southern part of the Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi)</p>'+
+        '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+        'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+        '(last visited June 22, 2009).</p>'+
+        '</div>'+
+        '</div>';
+
+    this.openwindow = new google.maps.InfoWindow({
+        content: self.contentString
+    });
     //markers.push(this.marker);
 
     //self.locations[i].marker = marker;
 }
-
 
 
 // ViewModel and holds initial screen
@@ -167,7 +177,6 @@ var ViewModel = function() {
     //this.mapList = ko.observableArray(locations);
 
     // iterate on each location and create new MapLocation
-    // with observed title and position data
     locations.forEach(function(placeItem){
         self.mapList.push( new MapLocation(placeItem));
         //console.log(mapList() + 'loaded items');
@@ -209,36 +218,19 @@ var ViewModel = function() {
         self.currentMap(clickedMarker);
         if(self.currentMap().marker) {
             this.marker.setAnimation(google.maps.Animation.BOUNCE);
+
+            //Open info window
+            this.openwindow.open(map, this.marker);
+
             //this.marker.setVisible(false);
-            console.log("marker clicked = " + self.currentMap().marker.title);
+            console.log("item list clicked = " + self.currentMap().marker.title);
         };
 
         setTimeout(function(){
             self.currentMap().marker.setAnimation(null);
         }, 700);
     };
-
-    /******************
-    start info window
-    ******************/
-
-    //self.locationWindow = new google.maps.InfoWindow();
-
-    /*self.windowList = ko.observableArray([]);
-
-    locations.forEach(function(windowItem){
-        self.windowList.push( new LocationWindow(windowItem));
-        console.log(windowList + 'loaded items');
-    });
-*/
-    // Activate marker info window
-    /*this.markerInfo = function(markerInfo) {
-        self.currentMap(markerInfo);
-    };*/
-
-
 };
-
 
 //ko.applyBindings(new ViewModel());
 
