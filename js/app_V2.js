@@ -1,144 +1,87 @@
 // Move location objects out of initMap to simplyfy and
 // pass it as data parameter into MapLocation constructor
+// made lat and lng more accessible
 
 var locations = [
     {title: 'The Basque Block',
-    location: {
         lat: 43.613946,
         lng: -116.20246
-        }
     },
     {title: 'Gernika Bar',
-    location: {
+
         lat: 43.614072,
         lng: -116.202967
-        }
     },
     {title: 'The Basque Museum',
-        location: {
+
         lat: 43.61382,
         lng: -116.202681
-        }
     },
     {title: 'The Porton',
-        location: {
+
         lat: 43.613702,
         lng: -116.202606
-        }
+
     },
     {title: 'The Boarding House',
-        location: {
+
         lat: 43.613655,
         lng: -116.202442
-        }
+
     },
     {title: 'The Basque Center',
-    location: {
+
         lat: 43.613543,
         lng: -116.202293
-        }
+
     },
     {title: 'The Basque Market',
-    location: {
+
         lat:  43.614019,
         lng: -116.202074
-        }
+
     },
     {title: 'Leku ona Restaurant',
-    location: {
+
         lat: 43.614004,
         lng: -116.201861
-        }
+
     }
 ];
 
 // Create a map variable
 var map;
 
-// Create a new blank array for all the listing markers.
-var markers = [];
-
-// function to initialize the map
-// use constructor to create a new map JS object.
 function initMap() {
 
-    var mapStyle = [
-      {
-        featureType: 'water',
-        stylers: [
-          { color: '#19a0d8' }
-        ]
-      },{
-        featureType: 'administrative',
-        elementType: 'labels.text.stroke',
-        stylers: [
-          { color: '#ffffff' },
-          { weight: 6 }
-        ]
-      },{
-        featureType: 'administrative',
-        elementType: 'labels.text.fill',
-        stylers: [
-          { color: '#e85113' }
-        ]
-      },{
-        featureType: 'road.highway',
-        elementType: 'geometry.stroke',
-        stylers: [
-          { color: '#efe9e4' },
-          { lightness: -40 }
-        ]
-      },{
-        featureType: 'transit.station',
-        stylers: [
-          { weight: 9 },
-          { hue: '#e85113' }
-        ]
-      },{
-        featureType: 'road.highway',
-        elementType: 'labels.icon',
-        stylers: [
-          { visibility: 'off' }
-        ]
-      },{
-        featureType: 'water',
-        elementType: 'labels.text.stroke',
-        stylers: [
-          { lightness: 100 }
-        ]
-      },{
-        featureType: 'water',
-        elementType: 'labels.text.fill',
-        stylers: [
-          { lightness: -100 }
-        ]
-      },{
-        featureType: 'poi',
-        elementType: 'geometry',
-        stylers: [
-          { visibility: 'on' },
-          { color: '#f0e4d3' }
-        ]
-      },{
-        featureType: 'road.highway',
-        elementType: 'geometry.fill',
-        stylers: [
-          { color: '#efe9e4' },
-          { lightness: -25 }
-        ]
-      }
-    ];
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 43.614019, lng: -116.201861},
         zoom: 18,
-        mapTypeControl: false,
-        styles: mapStyle
+        mapTypeControl: false
+
+    });
+
+       ko.applyBindings(new ViewModel());
+}
+
+
+// Create a new blank array for all the listing markers.
+//var markers = [];
+
+// function to initialize the map
+// use constructor to create a new map JS object.
+/*function initMap() {
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 43.614019, lng: -116.201861},
+        zoom: 18,
+        mapTypeControl: false
 
     });
 
     // use new constructor to create the InfoWindow
-    var largeInfowindow = new google.maps.InfoWindow();
-    var bounds = new google.maps.LatLngBounds();
+    //var largeInfowindow = new google.maps.InfoWindow();
+    /*var bounds = new google.maps.LatLngBounds();
 
     //loop through the var locations we created in order to create one marker per location
     for (var i = 0; i < locations.length; i++) {
@@ -167,32 +110,68 @@ function initMap() {
         }
     map.fitBounds(bounds);
     }
-}
+
+
+    ko.applyBindings(new ViewModel());
+}*/
 
 /********************
 Implemeting Ko
 ********************/
 
-// pass the object literal locations as "data" into a constructor function
+// Class constructor for the locations object
 var MapLocation = function(data) {
-    this.title = ko.observable(data.title);
-    this.marker = marker;
-    this.markers = markers;
+    var self = this;
+    self.title = ko.observable(data.title);
+    self.lat = ko.observable(data.lat);
+    self.lng = ko.observable(data.lng);
+
+    var bounds = new google.maps.LatLngBounds();
+
+    // markers array no needed - MapLocation will be pushed in the ViewModel into mapList
+    //var markers = [];
+
+    // don't need to iterate since the ViewModel will use forEach and push a new MapLocation
+    // which iterate a single location with a linked marker
+    // loop through the var locations we created in order to create one marker per location
+    /*for (var i = 0; i < locations.length; i++) {
+            // Get the position for the location array
+            var position = locations[i].location;
+            var title = locations[i].title;*/
+    //}
+
+    // create a new marker and bind position and title properties
+    // with observed locations above
+    this.marker = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(self.lat(), self.lng()),
+        title: self.title(),
+        animation: google.maps.Animation.DROP,
+    });
+
+    //
+    //markers.push(this.marker);
+
+    //self.locations[i].marker = marker;
 }
 
-// use self to map to the view model
+
+
+// ViewModel and holds initial screen
 var ViewModel = function() {
     var self = this;
-    //this.mapList = ko.observableArray([]);
 
-    //observe locations object array
-    this.mapList = ko.observableArray(locations);
+    this.mapList = ko.observableArray([]);
 
-    // Loop over locations list
-    /*locations.forEach(function(placeItem){
+    //observed locations object array
+    //this.mapList = ko.observableArray(locations);
+
+    // iterate on each location and create new MapLocation
+    // with observed title and position data
+    locations.forEach(function(placeItem){
         self.mapList.push( new MapLocation(placeItem));
-        console.log('loaded items');
-    });*/
+        //console.log(mapList() + 'loaded items');
+    });
 
     // observe filter variable to determine its value in the ko.computed function below
     this.filter = ko.observable("");
@@ -207,7 +186,7 @@ var ViewModel = function() {
         // then it will return either true or false and pass it into the var "exist".
 
         return ko.utils.arrayFilter(self.mapList(), function(listItem) {
-            var exist = listItem.title.toLowerCase().indexOf(filter) !== -1;
+            var exist = listItem.title().toLowerCase().indexOf(filter) !== -1;
             if (listItem.marker) {
                 console.log("visible = " + exist);
 
@@ -215,16 +194,19 @@ var ViewModel = function() {
             }
             return exist;
         });
-        // write the value to the console, when the observables value changes
     }, self);
+
+    // write the value to the console, when the observable filter value changes
+    self.writeToConsole = ko.computed(function() {
+        console.log(self.filter());
+    });
 
     // store current location into a new observable variable
     this.currentMap = ko.observable(this.mapList());
 
-    // Get current marker on the list and animate pin
+    // Click on current marker on the list and animate pin
     this.getMarker = function(clickedMarker) {
         self.currentMap(clickedMarker);
-
         if(self.currentMap().marker) {
             this.marker.setAnimation(google.maps.Animation.BOUNCE);
             //this.marker.setVisible(false);
@@ -234,15 +216,30 @@ var ViewModel = function() {
         setTimeout(function(){
             self.currentMap().marker.setAnimation(null);
         }, 700);
-
     };
 
+    /******************
+    start info window
+    ******************/
+
+    //self.locationWindow = new google.maps.InfoWindow();
+
+    /*self.windowList = ko.observableArray([]);
+
+    locations.forEach(function(windowItem){
+        self.windowList.push( new LocationWindow(windowItem));
+        console.log(windowList + 'loaded items');
+    });
+*/
     // Activate marker info window
-    this.markerInfo = function(markerInfo) {
+    /*this.markerInfo = function(markerInfo) {
         self.currentMap(markerInfo);
-    };
+    };*/
+
+
 };
 
-ko.applyBindings(new ViewModel());
+
+//ko.applyBindings(new ViewModel());
 
 
