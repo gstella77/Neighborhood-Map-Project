@@ -7,7 +7,7 @@ MODEL
 ********************/
 
 var locations = [
-    {title: 'The Basque Block',
+    {title: 'Basque Block',
         lat: 43.613946,
         lng: -116.20246
     },
@@ -16,30 +16,30 @@ var locations = [
         lat: 43.614072,
         lng: -116.202967
     },
-    {title: 'The Basque Museum',
+    {title: 'Basque Museum',
 
         lat: 43.61382,
         lng: -116.202681
     },
-    {title: 'The Porton',
+    {title: 'Porton',
 
         lat: 43.613702,
         lng: -116.202606
 
     },
-    {title: 'The Boarding House',
+    {title: 'Boarding House',
 
         lat: 43.613655,
         lng: -116.202442
 
     },
-    {title: 'The Basque Center',
+    {title: 'Basque Center',
 
         lat: 43.613543,
         lng: -116.202293
 
     },
-    {title: 'The Basque Market',
+    {title: 'Basque Market',
 
         lat:  43.614019,
         lng: -116.202074
@@ -49,22 +49,34 @@ var locations = [
 
         lat: 43.614004,
         lng: -116.201861
-
     }
 ];
 
-// Create a map variable
-//var map;
-function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 43.614019, lng: -116.201861},
-        zoom: 18,
-        mapTypeControl: false
+var map;
 
+// make infoWindow global so it closes when another marker is selected
+// https://discussions.udacity.com/t/closing-infowindow-when-i-open-another-one/288608
+var infowindow;
+
+/**************************
+Initialize Map
+***************************/
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 43.614019, lng: -116.201861},
+    zoom: 18,
+    mapTypeControl: false
     });
+
+    this.infowindow = new google.maps.InfoWindow();
 
     ko.applyBindings(new ViewModel());
 }
+
+/*****************************
+View Constructor
+******************************/
 
 /* Class constructor to generate the list and visual map elements. This class will be needed
 by the ViewModel to iterate for each location, marker, and infowindow */
@@ -74,10 +86,9 @@ var MapLocation = function(data) {
     self.lat = ko.observable(data.lat);
     self.lng = ko.observable(data.lng);
 
-    this.map = map,
-
     // create a new marker and bind position and title properties
     // with observed locations above
+
     this.marker = new google.maps.Marker({
         map: map,
         position: new google.maps.LatLng(self.lat(), self.lng()),
@@ -85,7 +96,18 @@ var MapLocation = function(data) {
         animation: google.maps.Animation.DROP,
     });
 
-    // Infowindow content
+    this.marker.addListener('click', function(){
+        self.marker.setAnimation(google.maps.Animation.BOUNCE);
+        infowindow.open(map, this);
+
+        setTimeout(function(){
+            self.marker.setAnimation(null);
+        }, 700);
+
+    });
+
+
+    // Used infowindow construction
     // Include third party API here
     this.contentString = '<h3>' + self.title() + '</h3>'+
         '<div id="bodyContent">'+
@@ -96,12 +118,15 @@ var MapLocation = function(data) {
         '</div>'+
         '</div>';
 
-    this.openwindow = new google.maps.InfoWindow({
-        content: self.contentString
-    });
+    //this.openwindow = new google.maps.InfoWindow({
+        //content: self.contentString
+   // });
 }
 
-// ViewModel and holds initial screen
+/************************************
+ViewModel
+************************************/
+
 var ViewModel = function() {
     var self = this;
 
@@ -141,13 +166,14 @@ var ViewModel = function() {
     this.currentMap = ko.observable(this.mapList());
 
     // Click on current marker on the list and animate pin
-    this.getMarker = function(clickedMarker) {
+    this.getMarker = function(clickedMarker, marker, openwindow) {
         self.currentMap(clickedMarker);
         if(self.currentMap().marker) {
+
             this.marker.setAnimation(google.maps.Animation.BOUNCE);
 
             //Open info window
-            this.openwindow.open(map, this.marker);
+            infowindow.open(map, this.marker);
 
             //this.marker.setVisible(false);
             console.log("item list clicked = " + self.currentMap().marker.title);
@@ -156,7 +182,10 @@ var ViewModel = function() {
         setTimeout(function(){
             self.currentMap().marker.setAnimation(null);
         }, 700);
+
     };
+
+
 };
 
 //ko.applyBindings(new ViewModel());
