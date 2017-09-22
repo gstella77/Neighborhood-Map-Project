@@ -1,6 +1,6 @@
 // Move location objects out of initMap to simplyfy and
 // pass it as data parameter into MapLocation constructor
-// made lat and lng more accessible
+// made lat and lng objects more accessible
 
 /*******************
 MODEL
@@ -8,52 +8,40 @@ MODEL
 
 var locations = [
     {title: 'Basque Block',
-    location: {
         lat: 43.613946,
         lng: -116.20246
-        }
     },
     {title: 'Gernika Bar',
-    location: {
         lat: 43.614072,
         lng: -116.202967
-        }
     },
     {title: 'Basque Museum',
-    location: {
         lat: 43.61382,
         lng: -116.202681
-        }
     },
     {title: 'Porton',
-    location: {
         lat: 43.613702,
         lng: -116.202606
-        }
+
     },
     {title: 'Boarding House',
-    location: {
         lat: 43.613655,
         lng: -116.202442
-        }
+
     },
     {title: 'Basque Center',
-    location: {
         lat: 43.613543,
         lng: -116.202293
-    }
+
     },
     {title: 'Basque Market',
-    location: {
-        lat: 43.614019,
+        lat:  43.614019,
         lng: -116.202074
-    }
+
     },
     {title: 'Leku ona Restaurant',
-    location: {
         lat: 43.614004,
         lng: -116.201861
-        }
     }
 ];
 
@@ -70,43 +58,35 @@ View Constructor
 
 /* Class constructor to generate the list and visual map elements. This class will be needed
 by the ViewModel to iterate for each location, marker, and infowindow */
+/* Per forum title and static locations should not be are observable
+https://discussions.udacity.com/t/separation-of-concerns-and-making-markers-bounce-when-clicking-list/207722/4 */
 var MapLocation = function(data) {
     // Data
     var self = this;
-    self.title = ko.observable(data.title);
-    self.lat = ko.observable(data.lat);
-    self.lng = ko.observable(data.lng);
 
-    // Behaviors
+    this.title = data.title;
+    this.lat = data.lat;
+    this.lng = data.lng;
 
     // create a new marker and bind position and title properties
-    // with observed locations above
+    // with locations above
 
     this.marker = new google.maps.Marker({
         map: map,
-        position: new google.maps.LatLng(data.location),
+        position: new google.maps.LatLng(data.lat, data.lng),
         title: data.title,
         animation: google.maps.Animation.DROP,
     });
 
     this.marker.setMap(map);
 
-        // Used infowindow construction
-    // Include third party API here
-    this.contentString =
-        '<h3>' + data.title + '</h3>'+
-        '<div id="bodyContent">'+
-        '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large sandstone rock formation in the southern part of the Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi)</p>'+
-        '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-        'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-        '(last visited June 22, 2009).</p>'+
-        '</div>'+
-        '</div>';
-
-    this.infowindow = new google.maps.InfoWindow({
-        content: this.contentString,
-        maxWidth: 300,
-        maxHeight: 150
+    // Click on marker behavior uses Google API and not KO VMVM
+    // Animate and open infowindow
+    this.marker.addListener('click', function(){
+        self.animateMarker();
+        var contentString = '<h3>' + data.title + '</h3>'+'<div id="bodyContent">'+'<p> placeholder</p>';
+        infowindow.setContent(contentString);
+        infowindow.open(map, this);
     });
 
     // This function executes only one bounce to prevent animation not
@@ -119,13 +99,6 @@ var MapLocation = function(data) {
             }, 700);
         }
     };
-
-    // Click on marker behavior uses Google API and not KO VMVM
-    // Animate and open infowindow
-    this.marker.addListener('click', function(){
-        self.animateMarker();
-        self.infowindow.open(map, this);
-    });
 }
 
 /************************************
@@ -138,7 +111,6 @@ var ViewModel = function() {
     this.mapList = ko.observableArray([]);
 
     // iterate on each location and push MapLocation into mapList array
-    // what does it do?
     locations.forEach(function(placeItem){
         self.mapList.push( new MapLocation(placeItem));
     });
@@ -151,13 +123,12 @@ var ViewModel = function() {
     this.filteredItems = ko.computed(function() {
         var filter = self.filter().toLowerCase();
         return ko.utils.arrayFilter(self.mapList(), function(listItem) {
-            var exist = listItem.title().toLowerCase().indexOf(filter) !== -1;
+            var exist = listItem.title.toLowerCase().indexOf(filter) !== -1;
             if (listItem.marker) {
                 //console.log("visible = " + exist);
                 listItem.marker.setVisible(exist);
                 return exist;
             }
-            //return exist;
         });
     }, self);
 
@@ -166,9 +137,11 @@ var ViewModel = function() {
         console.log(self.filter());
     });
 
-    // store current location into a new observable variable
+    // store current location into an observable variable
     this.currentMap = ko.observable(this.mapList());
 
+    // Uhrrra! searched google to fix google map click event -upsidown solution link:
+    // http://jsfiddle.net/upsidown/8gjt0y6p/
     // Select item on the list, display current marker and animate pin
     this.getMarker = function(clickedMarker) {
 
@@ -177,9 +150,10 @@ var ViewModel = function() {
         ko MVVM will track position of current marker
         */
         // if(self.currentMap().marker) {
-        this.animateMarker();
+        //this.animateMarker();
         //Open info window
-        this.infowindow.open(map, this.marker);
+        google.maps.event.trigger(this.marker,'click');
+        //infowindow.open(map, this.marker);
         //this.marker.setVisible(false);
         console.log("item list clicked = " + self.currentMap().marker.title);
         //}
@@ -190,11 +164,16 @@ var ViewModel = function() {
 Initialize Map
 ***************************/
 
-function initMap() {
+var initMap = function() {
     map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 43.614019, lng: -116.201861},
     zoom: 18,
     mapTypeControl: false
+    });
+
+    infowindow = new google.maps.InfoWindow({
+        maxWidth: 300,
+        maxHeight: 150
     });
 
     ko.applyBindings(new ViewModel());
