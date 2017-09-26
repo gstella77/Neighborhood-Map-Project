@@ -1,38 +1,29 @@
-html,
 body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+  background-color: #000;
 }
-
 input {
-  width: 200px;
+  min-width: 70%;
 }
 
-/*
+/* Override Boostrap Box-sizing class that conflicts with Google maps padding */
+.selector-for-some-widget {
+  box-sizing: content-box;
+}
+
+.map-div {
+  position: relative;
+}
+
 #map {
   width: 100%;
   height: 600px;
 }
-*/
 
-/*upadted style from forum - jeremy_1188193858 - to make the
-google map compatible with bootstrap css
-didnt work */
-/* map won't display with Boostrap.css, width & height
-need to be set */
-.map-div {
-  position: relative;
-  width: 100%;
-  height: 600px;
+/* Override Boostrap */
+.list-group-item-primary {
+  background-color: #000;
 }
 
-.map-div #map {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: 0;
-  padding: 0;
+.bg-dark {
+  background-color: #000;
 }

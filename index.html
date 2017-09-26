@@ -2,53 +2,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+     <!-- Required meta tags -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Neignorhood Google Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Neigborhood Google Map</title>
+
+     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/libs/bootstrap.min.css">
+    <link rel="stylesheet" href="css/libs/offcanvas.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
- </head>
- <body>
-  <div>
-
-  </div>
-  <div class="container">
-        <nav class="navbar navbar-dark bg-dark">
-            <span class="h1" class="navbar-brand">Downtown Basque Attractions</span>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Downtown Basque Block</a>
+        <span class="float-left d-md-none">
+            <button class="navbar-toggler" type="button" data-toggle="offcanvas">
+                <span class="navbar-toggler-icon"></span>
             </button>
-        </nav>
-        <div class="row">
-            <div class="col-md-3">
-                <h4>Filter by Location Name</h4>
-                <!--<p>Add filter and use observed array</p>-->
-                 <p><input data-bind="value: filter, valueUpdate: 'afterkeydown'"/></p>
-
-                 <div class="list-group" data-bind="foreach: filteredItems">
-                      <button type="button" class="list-group-item" data-bind="text: title, click: $parent.getMarker"></button>
+        </span>
+    </nav>
+    <div class="container-fluid">
+         <!-- Left navigation - filter and list-->
+        <div class="row bg-dark row-offcanvas row-offcanvas-left">
+            <div class="col-sm-4 sidebar-offcanvas p-0" id="sidebar">
+                <!--filter observed value-->
+                <div class="col-12 text-white bg-info p-3">
+                    <p class="text-uppercase font-weight-bold">Filter by Location Name</p>
+                    <p><input data-bind="value: filter, valueUpdate: 'afterkeydown'"/></p>
+                </div>
+                <!--Observed list array and click binding-->
+                <div class="list-group" data-bind="foreach: filteredItems">
+                    <button type="button" class="list-group-item text-left list-group-item-primary" data-bind="text: title, click: $parent.getMarker"></button>
                 </div>
             </div>
-            <div class="col-md-9 map-div">
-                <!-- Create a place to put the map in the HTML-->
-                <div id="map"></div>
+            <!-- Right panel - Google Map-->
+            <div class="col-sm-8 p-0">
+                <div class="selector-for-some-widget" id="map"></div>
             </div>
         </div>
-
-  </div>
-
-<!-- Load the JS API ASYNCHRONOUSLY below.-->
-<!-- use API v3 'v=3' -->
-
-
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
-  <script src="js/app_V3.js"> </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhD_1ajo-rWaaCsIi7a9TV5PZpL-Bposk&v=3&callback=initMap" async defer></script>
-
-
- </body>
+    </div>
+    <!-- Load the JS API ASYNCHRONOUSLY.-->
+    <script src="js/libs/jquery-3.2.1.min.js"></script>
+    <script src="js/libs/bootstrap.min.js"></script>
+    <script src="js/libs/offcanvas.js"></script>
+    <script src="js/libs/knockout-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
+    <script src="js/app_V3.js"> </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhD_1ajo-rWaaCsIi7a9TV5PZpL-Bposk&v=3&callback=initMap" async defer></script>
+</body>
 </html>
