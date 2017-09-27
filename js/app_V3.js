@@ -4,114 +4,173 @@
 /*******************
 MODEL
 ********************/
-var mapStyles = [
-    {
-    featureType: 'water',
-    stylers: [
-      { color: '#19a0d8' }
-    ]
-    },{
-    featureType: 'administrative',
-    elementType: 'labels.text.stroke',
-    stylers: [
-      { color: '#ffffff' },
-      { weight: 6 }
-    ]
-    },{
-    featureType: 'administrative',
-    elementType: 'labels.text.fill',
-    stylers: [
-      { color: '#e85113' }
-    ]
-    },{
-    featureType: 'road.highway',
-    elementType: 'geometry.stroke',
-    stylers: [
-      { color: '#efe9e4' },
-      { lightness: -40 }
-    ]
-    },{
-    featureType: 'transit.station',
-    stylers: [
-      { weight: 9 },
-      { hue: '#e85113' }
-    ]
-    },{
-    featureType: 'road.highway',
-    elementType: 'labels.icon',
-    stylers: [
-      { visibility: 'off' }
-    ]
-    },{
-    featureType: 'water',
-    elementType: 'labels.text.stroke',
-    stylers: [
-      { lightness: 100 }
-    ]
-    },{
-    featureType: 'water',
-    elementType: 'labels.text.fill',
-    stylers: [
-      { lightness: -100 }
-    ]
-    },{
-    featureType: 'poi',
-    elementType: 'geometry',
-    stylers: [
-      { visibility: 'on' },
-      { color: '#f0e4d3' }
-    ]
-    },{
-    featureType: 'road.highway',
-    elementType: 'geometry.fill',
-    stylers: [
-      { color: '#efe9e4' },
-      { lightness: -25 }
-    ]
-    }
+// gray look & feel map style from:
+// https://bootstrapious.com/p/google-maps-and-bootstrap-tutorial
+var mapStyle = [
+   {
+      "featureType":"landscape",
+      "stylers":[
+         {
+            "saturation":-50
+         },
+         {
+            "lightness":65
+         },
+         {
+            "visibility":"on"
+         }
+      ]
+   },
+   {
+      "featureType":"poi",
+      "stylers":[
+         {
+            "saturation":-100
+         },
+         {
+            "lightness":51
+         },
+         {
+            "visibility":"simplified"
+         }
+      ]
+   },
+   {
+      "featureType":"road.highway",
+      "stylers":[
+         {
+            "saturation":-100
+         },
+         {
+            "visibility":"simplified"
+         }
+      ]
+   },
+   {
+      "featureType":"road.arterial",
+      "stylers":[
+         {
+            "saturation":-100
+         },
+         {
+            "lightness":30
+         },
+         {
+            "visibility":"on"
+         }
+      ]
+   },
+   {
+      "featureType":"road.local",
+      "stylers":[
+         {
+            "saturation":-100
+         },
+         {
+            "lightness":40
+         },
+         {
+            "visibility":"on"
+         }
+      ]
+   },
+   {
+      "featureType":"transit",
+      "stylers":[
+         {
+            "saturation":-100
+         },
+         {
+            "visibility":"simplified"
+         }
+      ]
+   },
+   {
+      "featureType":"administrative.province",
+      "stylers":[
+         {
+            "visibility":"off"
+         }
+      ]
+   },
+   {
+      "featureType":"water",
+      "elementType":"labels",
+      "stylers":[
+         {
+            "visibility":"on"
+         },
+         {
+            "lightness":-25
+         },
+         {
+            "saturation":-100
+         }
+      ]
+   },
+   {
+      "featureType":"water",
+      "elementType":"geometry",
+      "stylers":[
+         {
+            "hue":"#ffff00"
+         },
+         {
+            "lightness":-25
+         },
+         {
+            "saturation":-97
+         }
+      ]
+   }
 ];
 
 var locations = [
-    {title: 'Bardenay',
-     lat: 43.614042,
-     lng: -116.202191
-    },
-    {title: 'Basque Block',
-     lat: 43.613946,
-     lng: -116.20246
-    },
-    {title: 'Gernika Bar',
-     lat: 43.614072,
-     lng: -116.202967
-    },
-    {title: 'Basque Museum',
-     lat: 43.61382,
-     lng: -116.202681
-    },
-    {title: 'Porton',
-     lat: 43.613702,
-     lng: -116.202606
-
-    },
-    {title: 'Boarding House',
-     lat: 43.613655,
-     lng: -116.202442
-
-    },
-    {title: 'Basque Center',
-     lat: 43.613543,
-     lng: -116.202293
-
-    },
-    {title: 'Basque Market',
-     lat:  43.61399226820122,
-     lng: -116.20219760167676
-
-    },
-    {title: 'Leku Ona Restaurant',
-     lat: 43.614004,
-     lng: -116.201861
-    }
+   {
+      "title":"Bardenay",
+      "lat":43.614042,
+      "lng":-116.202191
+   },
+   {
+      "title":"Basque Block",
+      "lat":43.613946,
+      "lng":-116.20246
+   },
+   {
+      "title":"Gernika Bar",
+      "lat":43.614072,
+      "lng":-116.202967
+   },
+   {
+      "title":"Basque Museum",
+      "lat":43.61382,
+      "lng":-116.202681
+   },
+   {
+      "title":"Porton",
+      "lat":43.613702,
+      "lng":-116.202606
+   },
+   {
+      "title":"Boarding House",
+      "lat":43.613655,
+      "lng":-116.202442
+   },
+   {
+      "title":"Basque Center",
+      "lat":43.613543,
+      "lng":-116.202293
+   },
+   {
+      "title":"Basque Market",
+      "lat":43.61399226820122,
+      "lng":-116.20219760167676
+   },
+   {
+      "title":"Leku Ona Restaurant",
+      "lat":43.614004,
+      "lng":-116.201861
+   }
 ];
 
 
@@ -135,11 +194,32 @@ var MapLocation = function(data) {
     this.lat = data.lat;
     this.lng = data.lng;
 
+    // pull from Foursquare API
+    self.formattedPhone = ko.observable();
+
+    //using Foursquare API
+    this.fourSquare = 'https://api.foursquare.com/v2/venues/search?v=20161016&ll=' + data.lat + ',' + data.lng + '&client_id=IMFUSQ0B4RKBI0K4VZO1WI5MWEDUZCNK4Z0YX4XMADNY3Z4V&client_secret=1ZWXGTWBWEANPOEKNN2LJAUVZIWX2GGRJXFYEPRCPF1PAPEO';
+
+    //AJAX request
+    $.getJSON(this.fourSquare, function (data) {
+
+        var results = data.response.venues[0];
+
+        self.formattedPhone(results.contact.formattedPhone);
+
+    }).done(function(result) {
+        console.log(result);
+    }).fail(function(e) {
+        //$nytHeaderElem.text("NY Times articles could not be loaded");
+        console.log(e);
+    });
+
     // create a new marker and make data locations and title properties of the marker
     this.marker = new google.maps.Marker({
         map: map,
         position: new google.maps.LatLng(data.lat, data.lng),
         title: data.title,
+        icon: 'img/basque_pin.png',
         animation: google.maps.Animation.DROP,
     });
 
@@ -148,7 +228,11 @@ var MapLocation = function(data) {
     // Click handler - animate and set infowindow content to update the data
     this.marker.addListener('click', function(){
         self.animateMarker();
-        var contentString = '<h3>' + data.title + '</h3>'+'<div id="bodyContent">'+'<p> placeholder content for each marker</p>';
+        var contentString =
+        '<h3 style="color:green;padding-top:10px">' + data.title + '</h3>'+
+        '<h3 style="color:green;padding-top:10px">' + self.formattedPhone() + '</h3>'
+        '<div id="bodyContent">'+
+        '<p> placeholder content for each marker</p>';
         infowindow.setContent(contentString);
         infowindow.open(map, this);
     });
@@ -229,14 +313,15 @@ var initMap = function() {
     map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 43.614019, lng: -116.201861},
     zoom: 18,
-    styles: mapStyles,
+    //styles: mapStyle,
     panControl: false,
     zoomControl: false,
     mapTypeControl: false,
     scaleControl: false,
     streetViewControl: false,
     overviewMapControl: false,
-    rotateControl: false
+    rotateControl: false,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
     // create new infowindow

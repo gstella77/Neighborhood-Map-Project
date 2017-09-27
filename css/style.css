@@ -1,14 +1,11 @@
 body {
-  background-color: #000;
+  background-color: #666;
 }
 input {
   min-width: 70%;
 }
 
-/* Override Boostrap Box-sizing class that conflicts with Google maps padding */
-.selector-for-some-widget {
-  box-sizing: content-box;
-}
+
 
 .map-div {
   position: relative;
@@ -19,11 +16,24 @@ input {
   height: 600px;
 }
 
+/* Override Boostrap Box-sizing class that conflicts with Google maps padding */
+.selector-for-some-widget {
+  box-sizing: content-box;
+}
+
 /* Override Boostrap */
-.list-group-item-primary {
+.list-group-item-info {
   background-color: #000;
 }
 
 .bg-dark {
-  background-color: #000;
+  background-color: #000!important;
+}
+
+/* infoWindow classess */
+
+.iWtitle {
+  background-color: background-color: #48b5e9;
+  padding: 3px;
+  color: #000;
 }
