@@ -40,6 +40,8 @@
             </div>
             <!-- Right panel - Google Map-->
             <div class="col-md-8 p-0">
+                <span id="mapfail" class="h2 text-uppercase text-white pt-2"></span>
+                 <span id="apifail" class="h2 text-uppercase text-white pt-2"></span>
                 <div class="selector-for-some-widget" id="map"></div>
             </div>
         </div>
@@ -50,8 +52,8 @@
     <script src="js/libs/bootstrap.min.js"></script>
     <script src="js/libs/offcanvas.js"></script>
     <script src="js/libs/knockout-min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
+
     <script src="js/app_V3.js"> </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhD_1ajo-rWaaCsIi7a9TV5PZpL-Bposk&v=3&callback=initMap" async defer></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhD_1ajo-rWaaCsIi7a9TV5PZpL-Bposk&v=3&callback=initMap" onerror="googleError()"></script>
 </body>
 </html>

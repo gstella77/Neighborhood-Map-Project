@@ -194,25 +194,50 @@ var MapLocation = function(data) {
     this.lat = data.lat;
     this.lng = data.lng;
 
-    // pull from Foursquare API
+    self.notLoad = ko.observable();
+
+    // pull observed data from Foursquare API
     self.formattedPhone = ko.observable();
+    self.name = ko.observable();
+    self.formatAddress = ko.observable();
+    self.url = ko.observable();
 
     //using Foursquare API
-    this.fourSquare = 'https://api.foursquare.com/v2/venues/search?v=20161016&ll=' + data.lat + ',' + data.lng + '&client_id=IMFUSQ0B4RKBI0K4VZO1WI5MWEDUZCNK4Z0YX4XMADNY3Z4V&client_secret=1ZWXGTWBWEANPOEKNN2LJAUVZIWX2GGRJXFYEPRCPF1PAPEO';
+    this.fourSquare = 'https://api.foursquare.com/v2/venues/search?vmmmm=20161016&ll=' + data.lat + ',' + data.lng + '&client_id=IMFUSQ0B4RKBI0K4VZO1WI5MWEDUZCNK4Z0YX4XMADNY3Z4V&client_secret=1ZWXGTWBWEANPOEKNN2LJAUVZIWX2GGRJXFYEPRCPF1PAPEO';
 
     //AJAX request
     $.getJSON(this.fourSquare, function (data) {
 
-        var results = data.response.venues[0];
+        this.results = data.response.venues[0];
+        self.formattedPhone(this.results.contact.formattedPhone);
+        self.name(this.results.name);
+        self.formatAddress(this.results.location.formattedAddress);
+        self.url(this.results.url);
 
-        self.formattedPhone(results.contact.formattedPhone);
+        /*this.errorHandling = ko.computed(function(){
+            return self.formattedPhone("") +
+                self.name("") +
+                self.formatAddress("") +
+                self.url("");
+        });*/
 
     }).done(function(result) {
+        // handling data "undefined" var with typeof
+        console.log("getJSON request succeeded!");
+        if (typeof self.formattedPhone() === 'undefined') {
+            self.url(" ");
+            self.formattedPhone("Phone unavailable");
+        };
         console.log(result);
-    }).fail(function(e) {
-        //$nytHeaderElem.text("NY Times articles could not be loaded");
-        console.log(e);
-    });
+        }).fail(function(e) {
+            var $apiFail = $('#apifail');
+            $apiFail.text("FourSquare content is not available");
+            self.formattedPhone("Content not available");
+            self.name("");
+            self.formatAddress("");
+            self.url("");
+            console.log(e);
+        });
 
     // create a new marker and make data locations and title properties of the marker
     this.marker = new google.maps.Marker({
@@ -225,15 +250,19 @@ var MapLocation = function(data) {
 
     this.marker.setMap(map);
 
+
     // Click handler - animate and set infowindow content to update the data
     this.marker.addListener('click', function(){
+
         self.animateMarker();
-        var contentString =
-        '<h3 style="color:green;padding-top:10px">' + data.title + '</h3>'+
-        '<h3 style="color:green;padding-top:10px">' + self.formattedPhone() + '</h3>'
-        '<div id="bodyContent">'+
-        '<p> placeholder content for each marker</p>';
-        infowindow.setContent(contentString);
+        this.contentString =
+        '<h2 style="color:black">' + self.name() + '</h2>'+
+        '<h4 style="color:green">' + self.formattedPhone() + '</h4>' +
+        '<p style="color:black">' + self.formatAddress() + '</p>' +
+        '<a href="'+ self.url() +'">' + self.url() + '</a>' +
+        '<div id="bodyContent">';
+
+        infowindow.setContent(this.contentString);
         infowindow.open(map, this);
     });
 
@@ -245,6 +274,8 @@ var MapLocation = function(data) {
         }, 700);
     }
 }
+
+//'<a href="'+ article.web_url + '" >' + article.headline.main + '</a>'
 
 /************************************
 ViewModel
@@ -338,7 +369,17 @@ var initMap = function() {
     }
     // Tell the map to fit all markers inside map
     map.fitBounds(bounds);
-
     ko.applyBindings(new ViewModel());
+
 }
+
+// Google map fallback function
+//https://discussions.udacity.com/t/handling-google-maps-in-async-and-fallback/34282
+function googleError() {
+    var $mapFail = $('#mapfail');
+    $mapFail.text("Google Map is not available")
+    //console.log("Google is broken");
+};
+
+
 
