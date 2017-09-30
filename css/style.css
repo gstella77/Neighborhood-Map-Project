@@ -23,7 +23,7 @@ input {
 /* Override Boostrap colors */
 .list-group-item-info {
   color: #000;
-  background-color: #fff;
+  background-color: #f2f2f2;
 }
 
 button.list-group-item-info {
@@ -54,7 +54,6 @@ button.list-group-item-info:hover {
   border-bottom-left-radius: 0rem;
 }
 
-
 /* end overrride Bootstrap classes */
 
 .banner {
@@ -65,4 +64,8 @@ button.list-group-item-info:hover {
   background-color: #a50a0a;
   padding: 3px;
   color: #000;
+}
+
+.rowBack {
+  background-color: #f2f2f2;
 }

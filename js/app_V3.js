@@ -5,72 +5,82 @@ MODEL
 */
 
 var locations = [
-   {  "id":"4b49617ff964a520c96e26e3",
+   {
+      "venue":"4b49617ff964a520c96e26e3",
       "title":"Bardenay",
       "lat":43.614042,
       "lng":-116.202191
    },
    {
+      "venue":"4c4f9353885c1b8d3412cb37",
       "title":"Basque Block",
       "lat":43.613946,
       "lng":-116.20246
    },
    {
+      "venue":"4b3c1be5f964a520e58125e3",
       "title":"Gernika Bar",
       "lat":43.614072,
       "lng":-116.202967
    },
    {
+      "venue":"4b509b49f964a520342927e3",
       "title":"Basque Museum",
       "lat":43.61382,
       "lng":-116.202681
    },
    {
-      "title":"Basque Museum - Boarding House",
-      "lat":43.613655,
-      "lng":-116.202442
-   },
-   {
+      "venue":"4b50d83af964a520ed3427e3",
       "title":"Basque Center",
       "lat":43.613543,
       "lng":-116.202293
    },
    {
+      "venue":"4b801bb6f964a520f45230e3",
       "title":"Basque Market",
       "lat":43.61399226820122,
       "lng":-116.20219760167676
    },
    {
+      "venue":"4b96b866f964a52033e034e3",
       "title":"Leku Ona Restaurant",
       "lat":43.614004,
       "lng":-116.201861
    },
     {
+      "venue":"4b50bfe6f964a520b83027e3",
       "title":"Front Door",
       "lat":43.614338,
       "lng":-116.201582
+    },
+    {
+      "venue":"4bf981205317a5939164017f",
+      "title":"Tom Grainey's Sports Bar",
+      "lat":43.614186,
+      "lng":-116.201609
     }
 ];
 
 var map; // set map to global scope
 
 // https://discussions.udacity.com/t/closing-infowindow-when-i-open-another-one/288608
-var infowindow; // set infowindow to global to close it after another one is open
+// set infowindow to global to reuse the same infowindow object for each marker
+var infowindow;
 
 /**
 * CLASS CONSTRUCTOR
 * @desc Use data parameter to pass the locations objects
 * Use Foursquare API and $GetJSON call
 * Create markers and animation properties.
+* Changed lat-lng for venue id for content accuracy
 */
 var MapLocation = function(data) {
     var self = this;
 
     this.title = data.title;
+    this.venue = data.venue;
     this.lat = data.lat;
     this.lng = data.lng;
-
-    self.notLoad = ko.observable();
 
     // ko observed data from Foursquare API
     self.formattedPhone = ko.observable();
@@ -78,8 +88,9 @@ var MapLocation = function(data) {
     self.formatAddress = ko.observable();
     self.url = ko.observable();
 
-    // Foursquare API call
-    this.fourSquare = 'https://api.foursquare.com/v2/venues/search?v=20161016&ll=' + data.lat + ',' + data.lng + '&client_id=IMFUSQ0B4RKBI0K4VZO1WI5MWEDUZCNK4Z0YX4XMADNY3Z4V&client_secret=1ZWXGTWBWEANPOEKNN2LJAUVZIWX2GGRJXFYEPRCPF1PAPEO';
+    // Foursquare API call - used venue ID for each location
+    // https://discussions.udacity.com/t/how-do-i-use-foursquare-api/210274/22
+    this.fourSquare = 'https://api.foursquare.com/v2/venues/' + data.venue + '?client_id=IMFUSQ0B4RKBI0K4VZO1WI5MWEDUZCNK4Z0YX4XMADNY3Z4V&client_secret=1ZWXGTWBWEANPOEKNN2LJAUVZIWX2GGRJXFYEPRCPF1PAPEO&v=20161016';
 
     // ko computed function to handle API call fail
     this.errorHandling = ko.computed(function(){
@@ -91,7 +102,8 @@ var MapLocation = function(data) {
 
     // Perform Foursquare Ajax request
     $.getJSON(this.fourSquare, function (data) {
-        this.results = data.response.venues[0];
+
+        this.results = data.response.venue;
 
     }).done(function(result) {
         self.formattedPhone(this.results.contact.formattedPhone);
@@ -100,9 +112,10 @@ var MapLocation = function(data) {
         self.url(this.results.url);
 
         // handling data "undefined" var with typeof
-        if (typeof self.url() === 'undefined') {
+        if (typeof self.formattedPhone() === 'undefined') {
+            self.formattedPhone("Phone not available");
+        } else if (typeof self.url() === 'undefined') {
             self.url(" ");
-            self.formattedPhone("Phone unavailable");
         }
 
         console.log(result);
@@ -120,6 +133,7 @@ var MapLocation = function(data) {
         title: data.title,
         icon: 'img/basque_pin.png',
         animation: google.maps.Animation.DROP,
+        id: data.venue,
     });
 
     this.marker.setMap(map);
@@ -228,6 +242,7 @@ var initMap = function() {
     }
     // Fit all markers inside map
     map.fitBounds(bounds);
+
     ko.applyBindings(new ViewModel());
 };
 
@@ -235,5 +250,5 @@ var initMap = function() {
 //https://discussions.udacity.com/t/handling-google-maps-in-async-and-fallback/34282
 function googleError() {
     var $mapFail = $('#mapfail');
-    $mapFail.text("Google Map is not available");
+    $mapFail.text("Google Maps is not available");
 }

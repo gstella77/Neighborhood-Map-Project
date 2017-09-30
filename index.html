@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
      <!-- Required meta tags -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>Neigborhood Google Map</title>
 
      <!-- Bootstrap CSS -->
@@ -33,7 +33,7 @@
     </div>
     <div class="container-fluid">
          <!-- Left navigation - filter and list-->
-        <div class="row bg-white row-offcanvas row-offcanvas-left">
+        <div class="row rowBack row-offcanvas row-offcanvas-left">
             <div class="col-md-4 sidebar-offcanvas p-0" id="sidebar">
                 <!--filter observed value-->
                 <div class="text-white selected p-3">
@@ -41,7 +41,10 @@
                     <p class="pl-2"><input data-bind="value: filter, valueUpdate: 'afterkeydown'"/></p>
 
                     <!-- Foursquare fallback message -->
-                    <span data-bind="" class="h5 text-warning pt-2"></span>
+                    <span id="apifail" class="h5 text-warning pt-2"></span>
+
+                    <!-- Google map fallback message -->
+                    <span id="mapfail" class="h4 text-warning pt-2"></span>
                 </div>
                 <!--Observed list array and click binding-->
                 <div class="list-group" data-bind="foreach: filteredItems">
@@ -50,8 +53,7 @@
             </div>
             <!-- Right panel - Google Map-->
             <div class="col-md-8 p-0">
-                 <!-- Google map fallback message -->
-                <span id="mapfail" class="h4 text-warning pt-2"></span>
+
                 <div class="selector-for-some-widget" id="map"></div>
             </div>
         </div>
