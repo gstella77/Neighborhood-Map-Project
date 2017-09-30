@@ -4,7 +4,7 @@
 <head>
      <!-- Required meta tags -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Neigborhood Google Map</title>
 
      <!-- Bootstrap CSS -->
@@ -14,8 +14,9 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-danger text-white">
-        <span class="h3 navbar">Boise Downtown - Basque Block</span>
+
+    <nav class="navbar navbar-expand-lg bg-dark banner text-white">
+        <span class="h3 navbar">Boise Downtown - Basque Block Places</span>
 
        <!-- toggle icon to collapse list on mob-->
         <span class="float-left d-md-none">
@@ -24,24 +25,33 @@
             </button>
         </span>
     </nav>
+    <div class="row">
+        <div class="col">
+            <!-- image credit: http://www.thebasqueblock.com/ -->
+            <img src="img/Basque_dance.jpg" class="img-fluid" alt="Responsive image">
+        </div>
+    </div>
     <div class="container-fluid">
          <!-- Left navigation - filter and list-->
-        <div class="row bg-dark row-offcanvas row-offcanvas-left">
+        <div class="row bg-white row-offcanvas row-offcanvas-left">
             <div class="col-md-4 sidebar-offcanvas p-0" id="sidebar">
                 <!--filter observed value-->
-                <div class="text-white bg-success p-3">
-                    <p class="text-uppercase font-weight-bold pl-2">Filter by Location Name</p>
+                <div class="text-white selected p-3">
+                    <p class="h5 pl-2">Filter by Location Name</p>
                     <p class="pl-2"><input data-bind="value: filter, valueUpdate: 'afterkeydown'"/></p>
+
+                    <!-- Foursquare fallback message -->
+                    <span data-bind="" class="h5 text-warning pt-2"></span>
                 </div>
                 <!--Observed list array and click binding-->
                 <div class="list-group" data-bind="foreach: filteredItems">
-                    <button type="button" class="list-group-item text-white border-bottom-1 border-white text-left list-group-item-info" data-bind="text: title, click: $parent.getMarker"></button>
+                    <button type="button" class=" list-group-item border-info text-left list-group-item-info" data-bind="text:title, click: $parent.getMarker"></li>
                 </div>
             </div>
             <!-- Right panel - Google Map-->
             <div class="col-md-8 p-0">
-                <span id="mapfail" class="h2 text-uppercase text-white pt-2"></span>
-                 <span id="apifail" class="h2 text-uppercase text-white pt-2"></span>
+                 <!-- Google map fallback message -->
+                <span id="mapfail" class="h4 text-warning pt-2"></span>
                 <div class="selector-for-some-widget" id="map"></div>
             </div>
         </div>

@@ -1,0 +1,561 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"padd",
+				"padding-left"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"cat",
+				"catClicks"
+			],
+			[
+				"city",
+				"cityStr"
+			],
+			[
+				"add",
+				"addEventListener"
+			],
+			[
+				"num",
+				"numOfPizza"
+			],
+			[
+				"random",
+				"randomPizzas"
+			],
+			[
+				"change",
+				"changePizzaSizes"
+			],
+			[
+				"cap",
+				"capture"
+			],
+			[
+				"con",
+				"align-content"
+			],
+			[
+				"ali",
+				"align-items"
+			],
+			[
+				"al",
+				"align-items"
+			],
+			[
+				"b",
+				"bottom"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"ch",
+				"checkCollisions"
+			],
+			[
+				"c",
+				"center"
+			],
+			[
+				"check",
+				"checkWin"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"this",
+				"this"
+			],
+			[
+				"player",
+				"playerWidth"
+			],
+			[
+				"proto",
+				"prototype"
+			],
+			[
+				"height",
+				"canvasHeight"
+			],
+			[
+				"book",
+				"bookTitle"
+			],
+			[
+				"padding",
+				"padding-top"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"background",
+				"background-size"
+			],
+			[
+				"font",
+				"font-family"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
+				"log",
+				"logClicks"
+			],
+			[
+				"code",
+				"CodeSchool"
+			],
+			[
+				"formatted",
+				"formattedRole"
+			],
+			[
+				"awes",
+				"awesomeThoughts"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "pack",
+		"selected_items":
+		[
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/src/views/js/main.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/ud989-cat-clicker-ko-starter/index_foreach.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/ud989-cat-clicker-ko-starter/js/app.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P4_classic_arcade_game/game_github_approved/frontend-nanodegree-arcade-game/js/app.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google-store-location/google-maps-simple-store-locator/src/app.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/neighborhood-google-map/js/fourSquareRequest.json",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google-maps-course/ud864/04_Hello_Map_Quiz.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google-maps-course/ud864/Project_Code_12_FasterIsBetterPlacesAutocompletePart2.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google-maps-course/ud864/Project_Code_5_BeingStylish.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google-maps-course/ud864/js/app.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/neighborhood-google-map/js/libs/oauth-signature.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/neighborhood-google-map/js/libs/oauth-signature.min.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/neighborhood-google-map/css/style.css",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P4_classic_arcade_game/game_github_approved/frontend-nanodegree-arcade-game/index.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/neighborhood-google-map/js/app_V1.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/minicourse-ajax-project/js/jQuery.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google-maps-course/ud864/05_Interpreting Geocoding Responses.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/minicourse-ajax-project/cat_clicker3.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/ud989-retain/js/retain.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/minicourse-ajax-project/js/cat_clicker_Reque3_premium.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/ud989-cat-clicker-ko-starter/index.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/ud989-retain/index.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/ud989-pizzamvo/index.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/ud989-pizzamvo/js/app.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google-maps-course/ud864/Project_Code_11_FasterIsBetterPlacesAutocompletePart1.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google-maps-course/ud864/Project_Code_9_MyCommuteDistanceMatrixAPIPart2.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google-maps-course/ud864/Project_Code_8_GeocodingInTheApp.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google-maps-course/ud864/Project_Code_4_WindowShoppingPart2.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google-maps-course/ud864/Project_Code_13_DevilInTheDetailsPlacesDetails.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google-maps-course/ud864/Project_Code_6_StaticMapsAndStreetViewImagery.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google-maps-course/ud864/Project_Code_7_Drawing.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google-maps-course/ud864/css/style.css",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google_map/index3.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google-maps-course/ud864/Project_Code_3_WindowShoppingPart1.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/ud989-todo-app/index.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google_map/map.css",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google_map/app3.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google_map/app2.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/google_map/index2.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/ud989-todo-app/js/models/todo.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/ud989-todo-app/js/views/todo-view.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/codeSchool_KnockOut/knockout-screencast/demos/5-todo-list-initial.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/draft.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/ud989-cat-clicker-ko-starter/nockout_foreach.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/minicourse-ajax-project/js/cat_clicker_Reque2.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/ud989-cat-clicker-ko-starter/js/app_v2.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/ud989-cat-clicker-ko-starter/js/app2.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/minicourse-ajax-project/css/catStyle.css",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/ud989-cat-clicker-andy/app.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/ud989-cat-clicker-andy/index.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/jquery_tutorial/jquery_tutorial.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/minicourse-ajax-project/js/script.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/minicourse-ajax-project/js/script_v1.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P6_mover_planner/minicourse-ajax-project/index.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/dist/views/js/main.min.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/src/index.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/src/views/css/style.css",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/README.md",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/gulpfile.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/src/views/pizza.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/.gitignore",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P4_classic_arcade_game/game_github_approved/frontend-nanodegree-arcade-game/README.md",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio V1/README.md",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/main.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/teamMate.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/dist/views/pizza.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/gulpfileV2.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/dist/delete.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/dist/js/deletejs.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/dist/css/deletecss.css",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/dist/delete1.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/dist/views/js/dletejs.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/gulpfileV1.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/gulp_coachTemplate_udacity.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/dist/project-webperf.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/dist/index.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/package.json",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/src/project-2048.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/src/project-mobile.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/src/project-webperf.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/gulpfile_v1.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/index.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/views/pizza.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/views/js/main.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/dist/views/js/test.min.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/src/views/js/test.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/news-aggregator-solution/scripts/app.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/news-aggregator-solution/styles/app.css",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio-backup/views/js/main.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/project-2048.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/css/style.css",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/views/css/style.css",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio V1/views/pizza.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio V1/views/js/main_15.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/views/js/main_15_ugly.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/views/js/main_no_comments_9.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/classMate_mini.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/classMate.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/views/js/main_no_comments_6_works.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/views/js/main_no_comments_7.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P4_classic_arcade_game/game_github_approved/frontend-nanodegree-arcade-game/js/engine.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/views/js/main_no_comments_4.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/news-aggregator-solution/news-aggregator/scripts/app_backup.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/views/js/main_issue.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/news-aggregator-master/scripts/app_backup.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/news-aggregator-solution/news-aggregator/index.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/news-aggregator-master/styles/app.css",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/news-aggregator-master/scripts/app.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/qr-code-app/qrcode/app/scripts/main-original.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/news-aggregator/styles/app.css",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/qr-code-app/qrcode/app/scripts/main.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio-backup/views/pizza.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/views/js/main_issue_pizza_size.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/box-recalc-style-slow_solution.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/views/images/pizza.png",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio-backup/views/js/main2.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/web-worker/web-workers-demo-solution/scripts/worker-improved.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/web-worker/web-workers-demo/scripts/image-app.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/web-worker/web-workers-demo-solution/scripts/imageManips-improved.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/web-worker/web-workers-demo-solution/scripts/image-app-solution.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/web-worker/web-workers-demo/scripts/worker.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/web-worker/web-workers-demo/scripts/imageManips.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/web-worker/web-workers-demo-solution/scripts/image-app-improved.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/web-worker/web-workers-demo/index.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio-backup/index.html",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/js/perfmatters.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/frontend-nanodegree-mobile-portfolio/js/perfmatters.min.js",
+		"/Users/gg805s/Training/UDACITY/Front_End_Developer/P5_advanced_interactive_websites/web-worker/web-workers-demo/scripts/time-animator.js"
+	],
+	"find":
+	{
+		"height": 27.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"articles",
+			"info-bubble",
+			"largeInfowindow",
+			"app",
+			"note",
+			"zoom",
+			"setMap",
+			"infowindow",
+			"active",
+			"cat",
+			"input",
+			"catResponse",
+			"cat-pic",
+			"response",
+			"console",
+			"error",
+			"document.getElementById",
+			"getElementsBy",
+			"phase",
+			"updating",
+			"Developer",
+			"pizza.png",
+			"updating ",
+			"if",
+			"conso",
+			"items",
+			"pizzaContainer",
+			"pizzaContainer;",
+			"randomPizzas",
+			"moving",
+			"style",
+			"basicLeft",
+			"translate",
+			"classList",
+			"pizzaImage",
+			"classList",
+			"storyDetails",
+			"basicLeft",
+			"basicLeft ",
+			"mover",
+			"elem",
+			".js",
+			"storyDetails",
+			"hideStory",
+			"showStory",
+			"visible",
+			"show",
+			"loadStory",
+			"colorize",
+			"show",
+			"randomPizzaContainer",
+			"randomPizzas",
+			"pizzaSize ",
+			"style.width",
+			"requestA",
+			"setI",
+			"requestA",
+			"setInterval",
+			"DOMContentLoaded",
+			"scrollTop",
+			"scroll.top",
+			"container",
+			"basic",
+			"basci",
+			"newW",
+			"scroll",
+			"odor",
+			"hairy",
+			"whole",
+			"random",
+			"sliding",
+			"left",
+			"mover",
+			"onStoryclick",
+			"onStoryData",
+			"onStory",
+			"story",
+			"header",
+			"will",
+			"mark",
+			"mover",
+			"documentloas",
+			"scroll",
+			"captureFrame",
+			"capture",
+			"setInterval",
+			"setI",
+			"captureFrame",
+			"setTimeout",
+			"setTime",
+			"setinterval",
+			"functions",
+			"heart",
+			"allHeart",
+			"main",
+			"main();",
+			"heart",
+			"box",
+			"li",
+			"<li>",
+			"portfolio-sections",
+			"li",
+			"ul",
+			"box",
+			"header",
+			"main",
+			"gameCharacter",
+			"winscore3",
+			"heart",
+			"babbaa",
+			"bab",
+			"game over",
+			"speed",
+			"ballRadius",
+			"width",
+			"speed",
+			"collisio",
+			"amy",
+			"score",
+			"status",
+			"amy",
+			"up",
+			"canvasWidth",
+			"column",
+			"player",
+			"frameCount",
+			"dt",
+			"sprite"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"GameElements",
+			"contact",
+			"",
+			"contact"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "index.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 437.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

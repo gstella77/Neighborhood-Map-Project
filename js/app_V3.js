@@ -1,132 +1,11 @@
-// Move location objects out of initMap to separate concerns
-// pass data parameter into MapLocation constructor
-
-/*******************
+/**
 MODEL
-********************/
-// gray look & feel map style from:
-// https://bootstrapious.com/p/google-maps-and-bootstrap-tutorial
-var mapStyle = [
-   {
-      "featureType":"landscape",
-      "stylers":[
-         {
-            "saturation":-50
-         },
-         {
-            "lightness":65
-         },
-         {
-            "visibility":"on"
-         }
-      ]
-   },
-   {
-      "featureType":"poi",
-      "stylers":[
-         {
-            "saturation":-100
-         },
-         {
-            "lightness":51
-         },
-         {
-            "visibility":"simplified"
-         }
-      ]
-   },
-   {
-      "featureType":"road.highway",
-      "stylers":[
-         {
-            "saturation":-100
-         },
-         {
-            "visibility":"simplified"
-         }
-      ]
-   },
-   {
-      "featureType":"road.arterial",
-      "stylers":[
-         {
-            "saturation":-100
-         },
-         {
-            "lightness":30
-         },
-         {
-            "visibility":"on"
-         }
-      ]
-   },
-   {
-      "featureType":"road.local",
-      "stylers":[
-         {
-            "saturation":-100
-         },
-         {
-            "lightness":40
-         },
-         {
-            "visibility":"on"
-         }
-      ]
-   },
-   {
-      "featureType":"transit",
-      "stylers":[
-         {
-            "saturation":-100
-         },
-         {
-            "visibility":"simplified"
-         }
-      ]
-   },
-   {
-      "featureType":"administrative.province",
-      "stylers":[
-         {
-            "visibility":"off"
-         }
-      ]
-   },
-   {
-      "featureType":"water",
-      "elementType":"labels",
-      "stylers":[
-         {
-            "visibility":"on"
-         },
-         {
-            "lightness":-25
-         },
-         {
-            "saturation":-100
-         }
-      ]
-   },
-   {
-      "featureType":"water",
-      "elementType":"geometry",
-      "stylers":[
-         {
-            "hue":"#ffff00"
-         },
-         {
-            "lightness":-25
-         },
-         {
-            "saturation":-97
-         }
-      ]
-   }
-];
+* Move locations object out of initMap to separate concerns.
+*  class constructor
+*/
 
 var locations = [
-   {
+   {  "id":"4b49617ff964a520c96e26e3",
       "title":"Bardenay",
       "lat":43.614042,
       "lng":-116.202191
@@ -147,12 +26,7 @@ var locations = [
       "lng":-116.202681
    },
    {
-      "title":"Porton",
-      "lat":43.613702,
-      "lng":-116.202606
-   },
-   {
-      "title":"Boarding House",
+      "title":"Basque Museum - Boarding House",
       "lat":43.613655,
       "lng":-116.202442
    },
@@ -170,22 +44,24 @@ var locations = [
       "title":"Leku Ona Restaurant",
       "lat":43.614004,
       "lng":-116.201861
-   }
+   },
+    {
+      "title":"Front Door",
+      "lat":43.614338,
+      "lng":-116.201582
+    }
 ];
 
-
-var map;  // set map to global scope
+var map; // set map to global scope
 
 // https://discussions.udacity.com/t/closing-infowindow-when-i-open-another-one/288608
 var infowindow; // set infowindow to global to close it after another one is open
 
-
 /**
-  * @desc Locations constructor function
-  * @param data
-  * @return
-  * execute one full bounce. Helpful thread:
-  * https://discussions.udacity.com/t/separation-of-concerns-and-making-markers-bounce-when-clicking-list/207722/4
+* CLASS CONSTRUCTOR
+* @desc Use data parameter to pass the locations objects
+* Use Foursquare API and $GetJSON call
+* Create markers and animation properties.
 */
 var MapLocation = function(data) {
     var self = this;
@@ -196,50 +72,48 @@ var MapLocation = function(data) {
 
     self.notLoad = ko.observable();
 
-    // pull observed data from Foursquare API
+    // ko observed data from Foursquare API
     self.formattedPhone = ko.observable();
     self.name = ko.observable();
     self.formatAddress = ko.observable();
     self.url = ko.observable();
 
-    //using Foursquare API
-    this.fourSquare = 'https://api.foursquare.com/v2/venues/search?vmmmm=20161016&ll=' + data.lat + ',' + data.lng + '&client_id=IMFUSQ0B4RKBI0K4VZO1WI5MWEDUZCNK4Z0YX4XMADNY3Z4V&client_secret=1ZWXGTWBWEANPOEKNN2LJAUVZIWX2GGRJXFYEPRCPF1PAPEO';
+    // Foursquare API call
+    this.fourSquare = 'https://api.foursquare.com/v2/venues/search?v=20161016&ll=' + data.lat + ',' + data.lng + '&client_id=IMFUSQ0B4RKBI0K4VZO1WI5MWEDUZCNK4Z0YX4XMADNY3Z4V&client_secret=1ZWXGTWBWEANPOEKNN2LJAUVZIWX2GGRJXFYEPRCPF1PAPEO';
 
-    //AJAX request
+    // ko computed function to handle API call fail
+    this.errorHandling = ko.computed(function(){
+    return self.formattedPhone("Foursquare content not available") +
+        self.name("") +
+        self.formatAddress("") +
+        self.url("");
+    });
+
+    // Perform Foursquare Ajax request
     $.getJSON(this.fourSquare, function (data) {
-
         this.results = data.response.venues[0];
-        self.formattedPhone(this.results.contact.formattedPhone);
-        self.name(this.results.name);
-        self.formatAddress(this.results.location.formattedAddress);
-        self.url(this.results.url);
-
-        /*this.errorHandling = ko.computed(function(){
-            return self.formattedPhone("") +
-                self.name("") +
-                self.formatAddress("") +
-                self.url("");
-        });*/
 
     }).done(function(result) {
+        self.formattedPhone(this.results.contact.formattedPhone);
+        self.name(this.results.name);
+        self.formatAddress(this.results.location.formattedAddress.join(', '));
+        self.url(this.results.url);
+
         // handling data "undefined" var with typeof
-        console.log("getJSON request succeeded!");
-        if (typeof self.formattedPhone() === 'undefined') {
+        if (typeof self.url() === 'undefined') {
             self.url(" ");
             self.formattedPhone("Phone unavailable");
-        };
+        }
+
         console.log(result);
         }).fail(function(e) {
             var $apiFail = $('#apifail');
-            $apiFail.text("FourSquare content is not available");
-            self.formattedPhone("Content not available");
-            self.name("");
-            self.formatAddress("");
-            self.url("");
+            $apiFail.text("Foursquare content is not available");
+            self.errorHandling();
             console.log(e);
         });
 
-    // create a new marker and make data locations and title properties of the marker
+    // Create a new marker and make data locations and name properties of the marker
     this.marker = new google.maps.Marker({
         map: map,
         position: new google.maps.LatLng(data.lat, data.lng),
@@ -250,53 +124,51 @@ var MapLocation = function(data) {
 
     this.marker.setMap(map);
 
-
     // Click handler - animate and set infowindow content to update the data
     this.marker.addListener('click', function(){
-
         self.animateMarker();
         this.contentString =
         '<h2 style="color:black">' + self.name() + '</h2>'+
-        '<h4 style="color:green">' + self.formattedPhone() + '</h4>' +
+        '<h4 style="color:#5a5b5b">' + self.formattedPhone() + '</h4>' +
         '<p style="color:black">' + self.formatAddress() + '</p>' +
         '<a href="'+ self.url() +'">' + self.url() + '</a>' +
         '<div id="bodyContent">';
-
         infowindow.setContent(this.contentString);
         infowindow.open(map, this);
     });
 
     // animate marker and use setTimeout to run one full bounce
+    // https://discussions.udacity.com/t/separation-of-concerns-and-making-markers-bounce-when-clicking-list/207722/4
     this.animateMarker = function(marker) {
         this.marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function(marker){
             self.marker.setAnimation(null);
         }, 700);
-    }
-}
+    };
+};
 
-//'<a href="'+ article.web_url + '" >' + article.headline.main + '</a>'
-
-/************************************
-ViewModel
-************************************/
+/**
+* VIEW MODEL
+* @desc Initialize locations array object and on each marker location properties.
+* ViewModel uses Ko utilities to filter markers and indexOf method to check string condition.
+* getMarker function sets current marker item and identifies clicked list item
+* with Ko click binding in the view.
+*/
 
 var ViewModel = function() {
     var self = this;
 
     this.mapList = ko.observableArray([]);
 
-    // iterate on each location and push MapLocation instance into mapList array
+    // iterate on each location and push item into mapList array
     locations.forEach(function(placeItem){
         self.mapList.push( new MapLocation(placeItem));
         placeItem.marker = this.marker;
     });
 
-    // make observable filter and compute value in the ko.computed function
     this.filter = ko.observable("");
 
     // use utils.arrayFilter in a boolean to toggle the markers visibility
-    // indexOf method check if string is found in the filter
     this.filteredItems = ko.computed(function() {
         var filter = self.filter().toLowerCase();
 
@@ -305,42 +177,29 @@ var ViewModel = function() {
             infowindow.close();
 
             if (listItem.marker) {
-                //console.log("visible = " + exist);
                 listItem.marker.setVisible(exist);
                 return exist;
             }
         });
     }, self);
 
-    // write the value to the console, when the observable filter value changes
-    self.writeToConsole = ko.computed(function() {
-        console.log(self.filter());
-    });
-
-    // store current location into an observable
+    // store current location into an ko observable
     this.currentMap = ko.observable(this.mapList());
 
-    // Used the click binding to set current marker location when clicked on the list.
-    // event trigger function passes event from marker on map to the list
-    // http://jsfiddle.net/upsidown/8gjt0y6p/
+    // event trigger function: http://jsfiddle.net/upsidown/8gjt0y6p/
     this.getMarker = function(clickedMarker) {
         self.currentMap(clickedMarker);
         google.maps.event.trigger(this.marker,'click');
         //console.log("item list clicked = " + self.currentMap().marker.title);
     };
-}
-
-/**************************
-Initialize Map
+};
 
 /**
+* INITIALIZE MAP APIs
 * @desc create map instance and activate KnockoutJS after map has been initialized
-* disable controls for better map block visibility
-* https://www.w3schools.com/graphics/google_maps_controls.asp
 */
 
 var initMap = function() {
-
     map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 43.614019, lng: -116.201861},
     zoom: 18,
@@ -367,19 +226,14 @@ var initMap = function() {
     for (var i = 0; i < locations.length; i++) {
         bounds.extend(locations[i]);
     }
-    // Tell the map to fit all markers inside map
+    // Fit all markers inside map
     map.fitBounds(bounds);
     ko.applyBindings(new ViewModel());
-
-}
+};
 
 // Google map fallback function
 //https://discussions.udacity.com/t/handling-google-maps-in-async-and-fallback/34282
 function googleError() {
     var $mapFail = $('#mapfail');
-    $mapFail.text("Google Map is not available")
-    //console.log("Google is broken");
-};
-
-
-
+    $mapFail.text("Google Map is not available");
+}
